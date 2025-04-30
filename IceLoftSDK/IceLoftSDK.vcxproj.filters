@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source files\src">
+      <UniqueIdentifier>{98a6a844-b321-4145-83ed-7f6dcec3bc3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource files\shaders">
+      <UniqueIdentifier>{052b6730-33f0-4c5c-8afc-235f2e045277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\icl">
+      <UniqueIdentifier>{d5ba1ca6-fa01-4d97-a3ff-9267d2ff7a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\icl">
+      <UniqueIdentifier>{d193c024-227b-45fd-b05f-c9080e0752aa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\IceLoftSrc\glad.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\ImGUI\imgui_demo.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\ImGUI\imgui_draw.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\ImGUI\imgui_impl_glfw.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\ImGUI\imgui_impl_opengl3.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\ImGUI\imgui_tables.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\ImGUI\imgui_widgets.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\ImGUI\imgui.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IceLoftSrc\stb_img.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IceLoftSrc\main.cpp">
+      <Filter>Source files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\icl\iceloft_debug.cpp">
+      <Filter>Source files\icl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\icl\inpt.cpp">
+      <Filter>Source files\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Includes\ImGUI\imstb_textedit.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\ImGUI\imstb_truetype.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\ImGUI\imconfig.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\ImGUI\imgui.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\ImGUI\imgui_impl_glfw.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\ImGUI\imgui_internal.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\ImGUI\imstb_rectpack.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\ImGUI\imgui_impl_opengl3_loader.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\engineGraphicalClasses\shader_s.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\stb_image.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\glm\glm.hpp">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\glm\gtc\matrix_transform.hpp">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\glm\gtc\type_ptr.hpp">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\x64\Debug\SObject.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\icl\icl_debug.h">
+      <Filter>Header files\icl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\icl\inpt.h">
+      <Filter>Header files\icl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\icl\icl_ui.h">
+      <Filter>Header files\icl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\icl\icl_camera.h">
+      <Filter>Header files\icl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\icl\icl_texture.h">
+      <Filter>Header files\icl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\icl\engine.h">
+      <Filter>Header files\icl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\x64\Debug\texture.vert">
+      <Filter>Resource files\shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\texture.frag">
+      <Filter>Resource files\shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\lightsrc.frag">
+      <Filter>Resource files\shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\lightsrc.vert">
+      <Filter>Resource files\shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\billboard.vert">
+      <Filter>Resource files\shaders</Filter>
+    </None>
+    <None Include="..\x64\Debug\billboard.frag">
+      <Filter>Resource files\shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
