@@ -281,12 +281,6 @@ int main() {
         if (ShowImGUIDemo)
             ImGui::ShowDemoWindow();
 
-        //// Setup texture(s)
-        //glActiveTexture(GL_TEXTURE0); // Activate texture unit first before binding texture
-        //glBindTexture(GL_TEXTURE_2D, texture1);
-        /*glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);*/
-
         mainShader.use();
 
         // Set projection matrix
@@ -300,32 +294,20 @@ int main() {
         // Render object
         unsigned int transformLoc = glGetUniformLocation(mainShader.ID, "transform");
 
-        //for (unsigned int i = 0; i < 10; i++)
-        //{
-        //    // calculate the model matrix for each object and pass it to shader before drawing
-        //    glm::mat4 model = glm::mat4(1.0f);
-        //    model = glm::translate(model, cubePositions[i]);
-        //    float angle = 20.0f * i;
-        //    model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-        //    mainShader.setMat4("model", model);
-
-        //    glDrawArrays(GL_TRIANGLES, 0, 36);
-        //}
-
-        //mainShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         mainShader.setVec3("lightColor", lightColor);
         mainShader.setVec3("lightPos", lightPos);
 
-        mainShader.setVec3("light.ambient", glm::vec3(0.2f));
-        mainShader.setVec3("light.diffuse", glm::vec3(0.5f));
-        mainShader.setVec3("light.specular", glm::vec3(1.0f));
+
+        mainShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+        mainShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        mainShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
         mainShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-        mainShader.setFloat("material.shininess", 128.0f);
+        mainShader.setFloat("material.shininess", 64.0f);
 
         // World transformation
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::scale(model, glm::vec3(4.0f, 1.0f, 4.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
         mainShader.setMat4("model", model);
 
         // Render the cube
