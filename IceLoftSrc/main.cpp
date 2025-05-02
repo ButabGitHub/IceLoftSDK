@@ -248,10 +248,13 @@ int main() {
     glm::vec3 viewVec = glm::vec3(0.0f, 0.0f, -3.0f);
 
     unsigned int missingTexture = icl::loadTexture("assets/textures/textures/img/missingTexture.png");
+    unsigned int containerTexture = icl::loadTexture("assets/textures/textures/img/container2.png");
+    unsigned int specular_containerTexture = icl::loadTexture("assets/textures/textures/img/container2_specular.png");
     unsigned int iconTex = icl::loadTexture("assets/textures/img/Light.png");
 
     mainShader.use();
     mainShader.setInt("material.diffuse", 0);
+    mainShader.setInt("material.diffuse", 1);
 
     // Process loop
     while (!glfwWindowShouldClose(window)) {
@@ -295,8 +298,8 @@ int main() {
         unsigned int transformLoc = glGetUniformLocation(mainShader.ID, "transform");
 
         mainShader.setVec3("lightColor", lightColor);
-        mainShader.setVec3("lightPos", lightPos);
-
+        mainShader.setVec3("light.position", lightPos);
+        mainShader.setVec3("viewPos", camera.Position);
 
         mainShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
         mainShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
@@ -312,7 +315,9 @@ int main() {
 
         // Render the cube
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, missingTexture);
+        glBindTexture(GL_TEXTURE_2D, containerTexture);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, specular_containerTexture);
 
         glBindVertexArray(cubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
