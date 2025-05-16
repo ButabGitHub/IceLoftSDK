@@ -41,7 +41,7 @@ const unsigned int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 unsigned int WIN_CURRENT_W = WINDOW_WIDTH, WIN_CURRENT_H = WINDOW_HEIGHT;
 const std::string WINDOW_TITLE = "IceLoft";
 
-bool ShowImGUIDemo = true;
+bool ShowImGUIDemo = false;
 bool ShowPerformanceWindow = false;
 
 // Camera 
@@ -245,8 +245,6 @@ int main() {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    glm::vec3 viewVec = glm::vec3(0.0f, 0.0f, -3.0f);
-
     unsigned int missingTexture = icl::loadTexture("assets/textures/textures/img/missingTexture.png");
     unsigned int containerTexture = icl::loadTexture("assets/textures/textures/img/container2.png");
     unsigned int specular_containerTexture = icl::loadTexture("assets/textures/textures/img/container2_specular.png");
@@ -305,7 +303,6 @@ int main() {
         mainShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         mainShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
-        mainShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
         mainShader.setFloat("material.shininess", 64.0f);
 
         // World transformation
@@ -563,3 +560,4 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
     else
         canControl = false;
 }
+

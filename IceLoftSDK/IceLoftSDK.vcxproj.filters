@@ -25,6 +25,9 @@
     <Filter Include="Source files\icl">
       <UniqueIdentifier>{d193c024-227b-45fd-b05f-c9080e0752aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header files\IclClasses">
+      <UniqueIdentifier>{db416c3a-d691-4109-b96f-0024323b06f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\IceLoftSrc\glad.c">
@@ -62,6 +65,18 @@
     </ClCompile>
     <ClCompile Include="..\Includes\icl\inpt.cpp">
       <Filter>Source files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IceLoftSrc\program.cpp">
+      <Filter>Source files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Game.cpp">
+      <Filter>Header files\IclClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="IclShader.cpp">
+      <Filter>Header files\IclClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Header files\IclClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +139,15 @@
     </ClInclude>
     <ClInclude Include="..\Includes\icl\engine.h">
       <Filter>Header files\icl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Game.h">
+      <Filter>Header files\IclClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="IclShader.h">
+      <Filter>Header files\IclClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
