@@ -24,6 +24,9 @@
     <ClCompile Include="..\IceLoftSrc\program.cpp" />
     <ClCompile Include="..\IceLoftSrc\stb_img.cpp" />
     <ClCompile Include="..\IclClasses\Game.cpp" />
+    <ClCompile Include="..\IclClasses\IclShader.cpp" />
+    <ClCompile Include="..\IclClasses\ResourceManager.cpp" />
+    <ClCompile Include="..\IclClasses\Texture.cpp" />
     <ClCompile Include="..\Includes\icl\iceloft_debug.cpp" />
     <ClCompile Include="..\Includes\icl\inpt.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui.cpp" />
@@ -33,11 +36,12 @@
     <ClCompile Include="..\Includes\ImGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_tables.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_widgets.cpp" />
-    <ClCompile Include="IclShader.cpp" />
-    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\IclClasses\Game.h" />
+    <ClInclude Include="..\IclClasses\IclShader.h" />
+    <ClInclude Include="..\IclClasses\ResourceManager.h" />
+    <ClInclude Include="..\IclClasses\Texture.h" />
     <ClInclude Include="..\Includes\engineGraphicalClasses\shader_s.h" />
     <ClInclude Include="..\Includes\glm\glm.hpp" />
     <ClInclude Include="..\Includes\glm\gtc\matrix_transform.hpp" />
@@ -58,8 +62,6 @@
     <ClInclude Include="..\Includes\ImGUI\imstb_truetype.h" />
     <ClInclude Include="..\Includes\stb_image.h" />
     <ClInclude Include="..\x64\Debug\SObject.h" />
-    <ClInclude Include="IclShader.h" />
-    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\x64\Debug\billboard.frag" />

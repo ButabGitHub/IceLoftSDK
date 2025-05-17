@@ -93,7 +93,7 @@ int main() {
     glEnable(GL_MULTISAMPLE);
 
     GLFWimage images[1];
-    images[0].pixels = stbi_load("assets/textures/img/IceLoft_Logo.png", &images[0].width, &images[0].height, 0, 4); // RGBA channels 
+    images[0].pixels = stbi_load("assets/textures/img/IceLoft_Logo2.png", &images[0].width, &images[0].height, 0, 4); // RGBA channels 
     glfwSetWindowIcon(window, 1, images);
     stbi_image_free(images[0].pixels);
 
