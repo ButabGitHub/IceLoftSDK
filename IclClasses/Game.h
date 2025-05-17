@@ -6,21 +6,22 @@
 
 // Represents the current state of the game (add more states if needed)
 enum GameState {
-    GAME_ACTIVE
+    GAME_ACTIVE,
+    GAME_PAUSED
 };
 
 // Game holds all game-related state and functionality.
 // Combines all game-related data into a single class for
 // easy access to each of the components and manageability.
-class Game
-{
+class Game {
 public:
     // Game state
     GameState               State;
     bool                    Keys[1024];
     unsigned int            Width, Height;
-    // Constructor/Destructor
+    // Constructor
     Game(unsigned int width, unsigned int height);
+    // Destructor
     ~Game();
     // Initialize game state (load all resources)
     void Init();

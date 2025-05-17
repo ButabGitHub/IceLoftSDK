@@ -10,7 +10,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 #include <iostream>
 #include <Windows.h>
 
@@ -92,6 +91,11 @@ int main() {
     // Enable depth buffer
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);
+
+    GLFWimage images[1];
+    images[0].pixels = stbi_load("assets/textures/img/IceLoft_Logo.png", &images[0].width, &images[0].height, 0, 4); // RGBA channels 
+    glfwSetWindowIcon(window, 1, images);
+    stbi_image_free(images[0].pixels);
 
     // Enable face culling // NOTE: Doesn't work as expected for now sadly :(
     /*glEnable(GL_CULL_FACE);

@@ -1,32 +1,26 @@
 #include "game.h"
 
 Game::Game(unsigned int width, unsigned int height)
-    : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
-{
+    : State(GAME_ACTIVE), Keys(), Width(width), Height(height) {
 
 }
 
-Game::~Game()
-{
+Game::~Game() {
 
 }
 
-void Game::Init()
-{
+void Game::Init() {
 
 }
 
-void Game::Update(float delta)
-{
+void Game::Update(float delta) {
 
 }
 
-void Game::ProcessInput(float delta)
-{
+void Game::ProcessInput(float delta) {
 
 }
 
-void Game::Render()
-{
+void Game::Render() {
 
 }
