@@ -75,10 +75,16 @@
     <ClCompile Include="..\IclClasses\IclShader.cpp">
       <Filter>Header files\IclClasses</Filter>
     </ClCompile>
+    <ClCompile Include="..\IclClasses\Resource.cpp">
+      <Filter>Header files\IclClasses</Filter>
+    </ClCompile>
     <ClCompile Include="..\IclClasses\ResourceManager.cpp">
       <Filter>Header files\IclClasses</Filter>
     </ClCompile>
     <ClCompile Include="..\IclClasses\Texture.cpp">
+      <Filter>Header files\IclClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\ShaderProgram.cpp">
       <Filter>Header files\IclClasses</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,10 +155,16 @@
     <ClInclude Include="..\IclClasses\IclShader.h">
       <Filter>Header files\IclClasses</Filter>
     </ClInclude>
+    <ClInclude Include="..\IclClasses\Resource.h">
+      <Filter>Header files\IclClasses</Filter>
+    </ClInclude>
     <ClInclude Include="..\IclClasses\ResourceManager.h">
       <Filter>Header files\IclClasses</Filter>
     </ClInclude>
     <ClInclude Include="..\IclClasses\Texture.h">
+      <Filter>Header files\IclClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\ShaderProgram.h">
       <Filter>Header files\IclClasses</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,11 +1,12 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 
 #include <glad/glad.h>
 
+#include "Resource.h"
+
 // Texture2D is able to store and configure a texture in OpenGL.
 // It also hosts utility functions for easy management.
-class Texture2D {
+class Texture2D : Resource {
 public:
     // Holds the ID of the texture object, used for all texture operations to reference to this particular texture
     unsigned int ID;
@@ -26,5 +27,3 @@ public:
     // Binds the texture as the current active GL_TEXTURE_2D texture object
     void Bind() const;
 };
-
-#endif

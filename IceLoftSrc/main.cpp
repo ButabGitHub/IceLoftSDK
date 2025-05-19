@@ -103,9 +103,9 @@ int main() {
     glFrontFace(GL_CCW);*/
 
     // Build and compile main shader
-    Shader mainShader("texture.vert", "texture.frag");
-    Shader lightSrcShader("lightsrc.vert", "lightsrc.frag");
-    Shader billboardShader("billboard.vert", "billboard.frag");
+    sShader mainShader("texture.vert", "texture.frag");
+    sShader lightSrcShader("lightsrc.vert", "lightsrc.frag");
+    sShader billboardShader("billboard.vert", "billboard.frag");
 
     // All rendering shit below
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -336,7 +336,7 @@ int main() {
         glBindVertexArray(lightCubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        // Render light sourrce's (cube's) icon
+        // Render light source's (cube's) icon
         glDisable(GL_DEPTH_TEST);
         billboardShader.use();
         billboardShader.setMat4("view", view);
