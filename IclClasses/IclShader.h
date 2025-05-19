@@ -1,12 +1,5 @@
 #pragma once
 
-#include <string>
-#include <type_traits>
-
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include "Resource.h"
 
 class Shader : public Resource {
@@ -21,8 +14,4 @@ public:
 
     // Compiles the shader from given source code
     void Compile(const char* vertexSource, const char* fragmentSource, const char* geometrySource = nullptr);
-
-private:
-    // Checks if compilation or linking failed and if so, print the error logs
-    void checkCompileErrors(uint32_t object, std::string type);
 };

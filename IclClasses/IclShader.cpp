@@ -1,5 +1,7 @@
 #include "IclShader.h"
-#include <iostream>
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 uint32_t Shader::get_id() const {
     return shader_id;
