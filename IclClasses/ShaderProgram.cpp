@@ -27,27 +27,27 @@ void ShaderProgram::set_uniform(const char* name, const uint32_t value) const {
 }
 
 void ShaderProgram::set_uniform(const char* name, const glm::vec2 value) const {
-    glUniform1ui(glGetUniformLocation(program_id, name), value);
+    glUniform2fv(glGetUniformLocation(program_id, name), 1, glm::value_ptr(value));
 }
 
 void ShaderProgram::set_uniform(const char* name, const glm::vec3 value) const {
-    glUniform1ui(glGetUniformLocation(program_id, name), value);
+    glUniform3fv(glGetUniformLocation(program_id, name), 1, glm::value_ptr(value));
 }
 
 void ShaderProgram::set_uniform(const char* name, const glm::vec4 value) const {
-    glUniform1ui(glGetUniformLocation(program_id, name), value);
+    glUniform4fv(glGetUniformLocation(program_id, name), 1, glm::value_ptr(value));
 }
 
 void ShaderProgram::set_uniform(const char* name, const glm::mat2 value) const {
-    glUniform1ui(glGetUniformLocation(program_id, name), value);
+    glUniformMatrix2fv(glGetUniformLocation(program_id, name), 1, GL_FALSE, glm::value_ptr(value));
 }
 
 void ShaderProgram::set_uniform(const char* name, const glm::mat3 value) const {
-    glUniform1ui(glGetUniformLocation(program_id, name), value);
+    glUniformMatrix3fv(glGetUniformLocation(program_id, name), 1, GL_FALSE, glm::value_ptr(value));
 }
 
 void ShaderProgram::set_uniform(const char* name, const glm::mat4 value) const {
-    glUniform1ui(glGetUniformLocation(program_id, name), value);
+    glUniformMatrix4fv(glGetUniformLocation(program_id, name), 1, GL_FALSE, glm::value_ptr(value));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

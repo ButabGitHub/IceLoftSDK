@@ -25,9 +25,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
-void debugTexture(unsigned char* data, int width, int height, int nrChannels);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
-static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
 void showEditorMenu();
 
@@ -80,6 +78,7 @@ int main() {
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSwapInterval(1);
     //glfwSetCursorPosCallback(window, cursor_position_callback);
 
     // Glad load all OpenGL function properties
