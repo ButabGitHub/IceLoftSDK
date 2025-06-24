@@ -86,7 +86,7 @@ int main() {
 
     // Glad load all OpenGL function properties
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cout << "\x1b[38;5;9mFailed to initialize GLAD" << std::endl;
+        std::cerr << "\x1b[38;5;9mFailed to initialize GLAD" << std::endl;
         return -1;
     }
 
@@ -305,8 +305,12 @@ int main() {
         textureprog.set_uniform("material.shininess", 64.0f);
 
         // World transformation
+        static float rotation_degrees = 0.0f;
         glm::mat4 model = glm::mat4(1.0f);
+
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        model =  glm::rotate(model, glm::radians(rotation_degrees), glm::vec3(0.0f, 1.0f, 0.0f));
+
         textureprog.set_uniform("model", model);
 
         // Render the cube
@@ -384,7 +388,6 @@ int main() {
                 }
                 // Category for some glm testing shit
                 if (ImGui::CollapsingHeader("GLM testing shit")) {
-                    static float rotation_degrees = 90.0f;
 
                     if (ImGui::DragFloat("Box rotation degrees", &rotation_degrees, 0.1f, 0.0f, 360.0f)) {
                         if (rotation_degrees == 360.0f) rotation_degrees = 0.0f;
@@ -550,7 +553,7 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn) {
 // Whenever the mouse scroll wheel scrolls this GLFW callback is called
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
     if (canControl) {
-        camera.ProcessMouseScroll(yoffset);
+        camera.ProcessMouseScroll((float)yoffset);
     }
 }
 
