@@ -3,42 +3,54 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <string>
+#include <filesystem>
+
 uint32_t Shader::get_id() const {
     return shader_id;
 }
 
-Resource Shader::Load(const char* path) {
+std::unique_ptr<Shader> Shader::Load(const char* path) {
     std::ifstream file(path);
-    if (!file.is_open())
-        throw std::runtime_error("Failed to open a file: " + path);
-
-    std::unordered_map<ShaderType, std::string> shaders;
-    std::stringstream ss[2];
-    ShaderType type = ShaderType::NONE;
-    std::string line;
-
-    while (std::getline(file, line)) {
-        if (line.find("#type") != std::string::npos) {
-            if (line.find("vertex") != std::string::npos)
-                type = ShaderType::VERTEX;
-            else if (line.find("fragment") != std::string::npos)
-                type = ShaderType::FRAGMENT;
-            else
-                throw std::runtime_error("Unknown shader type in file");
-        }
-        else {
-            if (type != ShaderType::NONE)
-                ss[(int)type] << line << '\n';
-        }
+    if (!file.is_open()) { // Error handling
+        std::cerr << "\x1b[38;5;9m\ Failed to open a shader: " << path;
+        return nullptr;
     }
 
-    shaders[ShaderType::VERTEX] = ss[0].str();
-    shaders[ShaderType::FRAGMENT] = ss[1].str();
-    return shaders;
-}
+    uint32_t type = NULL; // Shader type
 
-char Shader::shader_parse(const char* code) {
+    std::string line;
+    std::stringstream ss;
+    
+    std::string filename(path);
 
+    if (filename.find(".vert") != std::string::npos) {
+        type = GL_VERTEX_SHADER;
+    }
+    else if (filename.find(".frag") != std::string::npos) {
+        type = GL_FRAGMENT_SHADER;
+    }
+    else {
+        std::cerr << "\x1b[38;5;9m\ Couldn't find shader type specifier at path: " << path << "\n";
+        return nullptr;
+    }
+
+    while (std::getline(file, line)) {
+            if (type != NULL) {
+                ss << line << "\n";
+            }
+            else {
+                std::cerr << "\x1b[38;5;9m\ Couldn't find shader type specifier at path: " << path << "\n";
+                return nullptr;
+            }
+    }
+
+    // holy fuck this code is so shit
+
+    // Create a new shader which will get returned and specify shit
+    std::unique_ptr<Shader> shader = std::make_unique<Shader>(type, ss.str().c_str());
+
+    return shader;
 }
 
 Shader::Shader(const uint32_t type, const char* code) {
@@ -52,7 +64,7 @@ Shader::Shader(const uint32_t type, const char* code) {
     if (!success) {
         char info_log[2048];
         glGetShaderInfoLog(shader_id, 2048, NULL, info_log);
-        std::cout << "Shader compilation failed: " << info_log << std::endl;
+        std::cerr << "\x1b[38;5;9mShader compilation failed: " << info_log << "\n";
     }
 }
 

@@ -21,6 +21,8 @@
 #include <icl/icl_texture.h>
 #include <icl/engine.h>
 
+#include "../IclClasses/ShaderProgram.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -38,6 +40,7 @@ const unsigned int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
 unsigned int WIN_CURRENT_W = WINDOW_WIDTH, WIN_CURRENT_H = WINDOW_HEIGHT;
 const std::string WINDOW_TITLE = "IceLoft";
 
+bool ShowIclDebug = true;
 bool ShowImGUIDemo = false;
 bool ShowPerformanceWindow = false;
 
@@ -69,7 +72,7 @@ int main() {
 
     GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE.c_str(), NULL, NULL); // Main GLFW Window
     if (window == NULL) {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cout << "\x1b[38;5;9mFailed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
@@ -83,7 +86,7 @@ int main() {
 
     // Glad load all OpenGL function properties
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        std::cout << "\x1b[38;5;9mFailed to initialize GLAD" << std::endl;
         return -1;
     }
 
@@ -92,7 +95,7 @@ int main() {
     glEnable(GL_MULTISAMPLE);
 
     GLFWimage images[1];
-    images[0].pixels = stbi_load("assets/textures/img/IceLoft_Logo2.png", &images[0].width, &images[0].height, 0, 4); // RGBA channels 
+    images[0].pixels = stbi_load("assets/icons/IceLoft_Logo2.png", &images[0].width, &images[0].height, 0, 4); // RGBA channels 
     glfwSetWindowIcon(window, 1, images);
     stbi_image_free(images[0].pixels);
 
@@ -101,13 +104,21 @@ int main() {
     glCullFace(GL_FRONT);
     glFrontFace(GL_CCW);*/
 
-    // Build and compile main shader
-    sShader mainShader("texture.vert", "texture.frag");
-    sShader lightSrcShader("lightsrc.vert", "lightsrc.frag");
-    sShader billboardShader("billboard.vert", "billboard.frag");
+    std::unique_ptr<Shader> texShaderFrag = Shader::Load("texture.frag.glsl");
+    std::unique_ptr<Shader> texShaderVert = Shader::Load("texture.vert.glsl");
+
+    std::unique_ptr<Shader> lightSrcShaderFrag = Shader::Load("lightsrc.frag.glsl");
+    std::unique_ptr<Shader> lightSrcShaderVert = Shader::Load("lightsrc.vert.glsl");
+
+    std::unique_ptr<Shader> billboardShaderFrag = Shader::Load("billboard.frag.glsl");
+    std::unique_ptr<Shader> billboardShaderVert = Shader::Load("billboard.vert.glsl");
+
+    ShaderProgram textureprog = { texShaderFrag.get(), texShaderVert.get() };
+    ShaderProgram lightsrcprog = { lightSrcShaderFrag.get(), lightSrcShaderVert.get() };
+    ShaderProgram billboardprog = { billboardShaderFrag.get(), billboardShaderVert.get() };
 
     // All rendering shit below
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //--------------------------------------------------------------------------------------------------
 
     float vertices[] = {
         // positions          // normals           // texture coords
@@ -153,21 +164,6 @@ int main() {
         -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
     };
-
-
-    // World space positions of the cubes
-    /*glm::vec3 cubePositions[] = {
-        glm::vec3(0.0f,  0.0f,  0.0f),
-        glm::vec3(2.0f,  5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3(2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f,  3.0f, -7.5f),
-        glm::vec3(1.3f, -2.0f, -2.5f),
-        glm::vec3(1.5f,  2.0f, -2.5f),
-        glm::vec3(1.5f,  0.2f, -1.5f),
-        glm::vec3(-1.3f,  1.0f, -1.5f)
-    };*/
 
     float quadVertices[] = {
         // positions     // texCoords
@@ -232,10 +228,10 @@ int main() {
 
     glBindVertexArray(0);
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //--------------------------------------------------------------------------------------------------
 
     // ImGUI stuff below
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //--------------------------------------------------------------------------------------------------
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -246,16 +242,16 @@ int main() {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //--------------------------------------------------------------------------------------------------
 
-    unsigned int missingTexture = icl::loadTexture("assets/textures/textures/img/missingTexture.png");
-    unsigned int containerTexture = icl::loadTexture("assets/textures/textures/img/container2.png");
-    unsigned int specular_containerTexture = icl::loadTexture("assets/textures/textures/img/container2_specular.png");
-    unsigned int iconTex = icl::loadTexture("assets/textures/img/Light.png");
+    unsigned int missingTexture = icl::loadTexture("assets/textures/missingTexture.png");
+    unsigned int containerTexture = icl::loadTexture("assets/textures/container2.png");
+    unsigned int specular_containerTexture = icl::loadTexture("assets/textures/container2_specular.png");
+    unsigned int iconTex = icl::loadTexture("assets/icons/Light.png");
 
-    mainShader.use();
-    mainShader.setInt("material.diffuse", 0);
-    mainShader.setInt("material.diffuse", 1);
+    glUseProgram(textureprog.get_id());
+    textureprog.set_uniform("material.diffuse", 0);
+    textureprog.set_uniform("material.diffuse", 1);
 
     // Process loop
     while (!glfwWindowShouldClose(window)) {
@@ -285,33 +281,33 @@ int main() {
         if (ShowImGUIDemo)
             ImGui::ShowDemoWindow();
 
-        mainShader.use();
+        glUseProgram(textureprog.get_id());
 
         // Set projection matrix
         glm::mat4 projection = glm::perspective(glm::radians(camera.Fov), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
-        mainShader.setMat4("projection", projection);
+        textureprog.set_uniform("projection", projection);
 
         // Set view matrix
         glm::mat4 view = camera.GetViewMatrix();
-        mainShader.setMat4("view", view);
+        textureprog.set_uniform("view", view);
 
         // Render object
-        unsigned int transformLoc = glGetUniformLocation(mainShader.ID, "transform");
+        unsigned int transformLoc = glGetUniformLocation(textureprog.get_id(), "transform");
 
-        mainShader.setVec3("lightColor", lightColor);
-        mainShader.setVec3("light.position", lightPos);
-        mainShader.setVec3("viewPos", camera.Position);
+        textureprog.set_uniform("lightColor", lightColor);
+        textureprog.set_uniform("light.position", lightPos);
+        textureprog.set_uniform("viewPos", camera.Position);
 
-        mainShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-        mainShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-        mainShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+        textureprog.set_uniform("light.ambient", glm::vec3(0.2f));
+        textureprog.set_uniform("light.diffuse", glm::vec3(0.5f));
+        textureprog.set_uniform("light.specular", glm::vec3(0.1f));
 
-        mainShader.setFloat("material.shininess", 64.0f);
+        textureprog.set_uniform("material.shininess", 64.0f);
 
         // World transformation
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-        mainShader.setMat4("model", model);
+        textureprog.set_uniform("model", model);
 
         // Render the cube
         glActiveTexture(GL_TEXTURE0);
@@ -323,30 +319,30 @@ int main() {
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
         // Also draw the lamp object
-        lightSrcShader.use();
-        lightSrcShader.setMat4("projection", projection);
-        lightSrcShader.setMat4("view", view);
+        glUseProgram(lightsrcprog.get_id());
+        lightsrcprog.set_uniform("projection", projection);
+        lightsrcprog.set_uniform("view", view);
         model = glm::mat4(1.0f);
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f)); // A smaller cube
-        lightSrcShader.setMat4("model", model);
-        lightSrcShader.setVec3("sColor", lightColor);
+        lightsrcprog.set_uniform("model", model);
+        lightsrcprog.set_uniform("sColor", lightColor);
 
         glBindVertexArray(lightCubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
         // Render light source's (cube's) icon
         glDisable(GL_DEPTH_TEST);
-        billboardShader.use();
-        billboardShader.setMat4("view", view);
-        billboardShader.setMat4("projection", projection);
-        billboardShader.setVec3("billboardPos", lightPos);
-        billboardShader.setFloat("size", 0.2f); // size in world units
-        billboardShader.setVec3("tintColor", glm::vec3(1.0f, 1.0f, 0.8f));
+        glUseProgram(billboardprog.get_id());
+        billboardprog.set_uniform("view", view);
+        billboardprog.set_uniform("projection", projection);
+        billboardprog.set_uniform("billboardPos", lightPos);
+        billboardprog.set_uniform("size", 0.2f); // size in world units
+        billboardprog.set_uniform("tintColor", glm::vec3(1.0f, 1.0f, 0.8f));
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, iconTex);
-        billboardShader.setInt("iconTexture", 0);
+        billboardprog.set_uniform("iconTexture", 0);
 
         glBindVertexArray(quadVAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -354,64 +350,66 @@ int main() {
         glEnable(GL_DEPTH_TEST);
 
         // ImGui window setup
-        ImGui::SetNextWindowSize(ImVec2(500, 200), ImGuiCond_FirstUseEver);
-        if (ImGui::Begin("IceLoft Debug")) {
-            ImGui::Text("Debug window");
-            ImGui::Text("Camera FOV: %s", std::to_string(camera.Fov).c_str());
+        if ( ShowIclDebug ) {
+            ImGui::SetNextWindowSize(ImVec2(500, 200), ImGuiCond_FirstUseEver);
+            if (ImGui::Begin("IceLoft Debug")) {
+                ImGui::Text("Debug window");
+                ImGui::Text("Camera FOV: %s", std::to_string(camera.Fov).c_str());
 
-            // Adding render mode dropdown
-            // Create category for render debug settings
-            if (ImGui::CollapsingHeader("Render")) {
-                static const char* render_mode_items[] = { "Basic fill mode", "Wireframe line mode" };
-                static int render_mode_selectedItem = 0; // Index of the selected item
+                // Adding render mode dropdown
+                // Create category for render debug settings
+                if (ImGui::CollapsingHeader("Render")) {
+                    static const char* render_mode_items[] = { "Basic fill mode", "Wireframe line mode" };
+                    static int render_mode_selectedItem = 0; // Index of the selected item
 
-                if (ImGui::BeginCombo("Rendering mode", render_mode_items[render_mode_selectedItem])) { // The preview item
-                    for (int i = 0; i < IM_ARRAYSIZE(render_mode_items); i++) {
-                        bool isSelected = (render_mode_selectedItem == i);
-                        if (ImGui::Selectable(render_mode_items[i], isSelected)) {
-                            render_mode_selectedItem = i; // Set selected item
+                    if (ImGui::BeginCombo("Rendering mode", render_mode_items[render_mode_selectedItem])) { // The preview item
+                        for (int i = 0; i < IM_ARRAYSIZE(render_mode_items); i++) {
+                            bool isSelected = (render_mode_selectedItem == i);
+                            if (ImGui::Selectable(render_mode_items[i], isSelected)) {
+                                render_mode_selectedItem = i; // Set selected item
+                            }
+                            if (isSelected)
+                                ImGui::SetItemDefaultFocus(); // Set default focus if it was selected before
                         }
-                        if (isSelected)
-                            ImGui::SetItemDefaultFocus(); // Set default focus if it was selected before
+                        ImGui::EndCombo();
                     }
-                    ImGui::EndCombo();
-                }
 
-                // Change render mode based on it's selected item value 
-                if (render_mode_selectedItem == 0) {
-                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                    // Change render mode based on it's selected item value 
+                    if (render_mode_selectedItem == 0) {
+                        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                    }
+                    else if (render_mode_selectedItem == 1) {
+                        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                    }
                 }
-                else if (render_mode_selectedItem == 1) {
-                    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                // Category for some glm testing shit
+                if (ImGui::CollapsingHeader("GLM testing shit")) {
+                    static float rotation_degrees = 90.0f;
+
+                    if (ImGui::DragFloat("Box rotation degrees", &rotation_degrees, 0.1f, 0.0f, 360.0f)) {
+                        if (rotation_degrees == 360.0f) rotation_degrees = 0.0f;
+                    }
+
+                    ImGui::Text("Light position: ");
+                    if (ImGui::DragFloat("x", &lightPos[0], 0.1f));
+                    if (ImGui::DragFloat("y", &lightPos[1], 0.1f));
+                    if (ImGui::DragFloat("z", &lightPos[2], 0.1f));
+                }
+                // Category for ImGui things
+                if (ImGui::CollapsingHeader("Window")) {
+                    if (ImGui::Button("Reset debug window size")) {
+                        ImGui::SetWindowSize("IceLoft Debug", ImVec2(500, 200));
+                    }
+                    if (ImGui::Button("Reset editor window size")) {
+                        glfwSetWindowSize(window, WINDOW_WIDTH, WINDOW_HEIGHT);
+                        glfwRestoreWindow(window);
+                    }
                 }
             }
-            // Category for some glm testing shit
-            if (ImGui::CollapsingHeader("GLM testing shit")) {
-                static float rotation_degrees = 90.0f;
 
-                if (ImGui::DragFloat("Box rotation degrees", &rotation_degrees, 0.1f, 0.0f, 360.0f)) {
-                    if (rotation_degrees == 360.0f) rotation_degrees = 0.0f;
-                }
-
-                ImGui::Text("Light position: ");
-                if (ImGui::DragFloat("x", &lightPos[0], 0.1f));
-                if (ImGui::DragFloat("y", &lightPos[1], 0.1f));
-                if (ImGui::DragFloat("z", &lightPos[2], 0.1f));
+            // ImGui window end
+            ImGui::End(); 
             }
-            // Category for ImGui things
-            if (ImGui::CollapsingHeader("Window")) {
-                if (ImGui::Button("Reset debug window size")) {
-                    ImGui::SetWindowSize("IceLoft Debug", ImVec2(500, 200));
-                }
-                if (ImGui::Button("Reset editor window size")) {
-                    glfwSetWindowSize(window, WINDOW_WIDTH, WINDOW_HEIGHT);
-                    glfwRestoreWindow(window);
-                }
-            }
-        }
-
-        // ImGui window end
-        ImGui::End(); 
 
         if (ShowPerformanceWindow) {
             // Get viewport and calculate bottom-right position
@@ -498,7 +496,7 @@ void showEditorMenu() {
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("IclDebug")) {
-            if (ImGui::MenuItem("Show Iceloft debug menu", "")) {}
+            if (ImGui::MenuItem("Show Iceloft debug menu", "idk", &ShowIclDebug)) {}
             if (ImGui::MenuItem("Show ImGUI debug menu", "CTRL+SHIFT+", &ShowImGUIDemo)) {}
             if (ImGui::MenuItem("Show Performance debug menu", "SHIFT+F3", &ShowPerformanceWindow)) {}
             ImGui::EndMenu();

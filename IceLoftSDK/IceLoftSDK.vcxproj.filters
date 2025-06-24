@@ -128,9 +128,6 @@
     <ClInclude Include="..\Includes\glm\gtc\type_ptr.hpp">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="..\x64\Debug\SObject.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Includes\icl\icl_debug.h">
       <Filter>Header files\icl</Filter>
     </ClInclude>
@@ -169,22 +166,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\x64\Debug\texture.vert">
+    <None Include="..\x64\Debug\texture.vert.glsl">
       <Filter>Resource files\shaders</Filter>
     </None>
-    <None Include="..\x64\Debug\texture.frag">
+    <None Include="..\x64\Debug\texture.frag.glsl">
       <Filter>Resource files\shaders</Filter>
     </None>
-    <None Include="..\x64\Debug\lightsrc.frag">
+    <None Include="..\x64\Debug\lightsrc.frag.glsl">
       <Filter>Resource files\shaders</Filter>
     </None>
-    <None Include="..\x64\Debug\lightsrc.vert">
+    <None Include="..\x64\Debug\lightsrc.vert.glsl">
       <Filter>Resource files\shaders</Filter>
     </None>
-    <None Include="..\x64\Debug\billboard.vert">
+    <None Include="..\x64\Debug\billboard.vert.glsl">
       <Filter>Resource files\shaders</Filter>
     </None>
-    <None Include="..\x64\Debug\billboard.frag">
+    <None Include="..\x64\Debug\billboard.frag.glsl">
       <Filter>Resource files\shaders</Filter>
     </None>
   </ItemGroup>

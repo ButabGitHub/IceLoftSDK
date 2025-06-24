@@ -13,7 +13,7 @@ public:
     uint32_t get_id() const;
 
     // Constructor & destructor
-    ShaderProgram(const std::initializer_list<Shader*> shaders);
+    ShaderProgram(const std::initializer_list<Shader*> /*std::initializer_list<std::unique_ptr<Shader>>*/ shaders);
     ~ShaderProgram();
 
     // Overloads for different types

@@ -1,18 +1,16 @@
 #pragma once
 
 #include "Resource.h"
+//#include <unordered_map>
 
 class Shader : public Resource {
-public:
 private:
     uint32_t shader_id; // OpenGL ID of the shader
-
-    char shader_parse(const char* code); // Parse the shader
 public:
     uint32_t get_id() const;
 
     Shader(const uint32_t type, const char* code);
     ~Shader();
 
-    virtual Resource Load(const char* path) override;
+    static std::unique_ptr<Shader> Load(const char* path); // Load stuff from the resource class itself because I have too much skill issue to do Godot-like system
 };

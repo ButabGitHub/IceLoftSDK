@@ -65,15 +65,14 @@
     <ClInclude Include="..\Includes\ImGUI\imstb_textedit.h" />
     <ClInclude Include="..\Includes\ImGUI\imstb_truetype.h" />
     <ClInclude Include="..\Includes\stb_image.h" />
-    <ClInclude Include="..\x64\Debug\SObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\x64\Debug\billboard.frag" />
-    <None Include="..\x64\Debug\billboard.vert" />
-    <None Include="..\x64\Debug\lightsrc.frag" />
-    <None Include="..\x64\Debug\lightsrc.vert" />
-    <None Include="..\x64\Debug\texture.frag" />
-    <None Include="..\x64\Debug\texture.vert" />
+    <None Include="..\x64\Debug\billboard.frag.glsl" />
+    <None Include="..\x64\Debug\billboard.vert.glsl" />
+    <None Include="..\x64\Debug\lightsrc.frag.glsl" />
+    <None Include="..\x64\Debug\lightsrc.vert.glsl" />
+    <None Include="..\x64\Debug\texture.frag.glsl" />
+    <None Include="..\x64\Debug\texture.vert.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

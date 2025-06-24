@@ -52,7 +52,7 @@ void ShaderProgram::set_uniform(const char* name, const glm::mat4 value) const {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-ShaderProgram::ShaderProgram(const std::initializer_list<Shader*> shaders) {
+ShaderProgram::ShaderProgram(const std::initializer_list<Shader*> /*std::initializer_list<std::unique_ptr<Shader>>*/ shaders) {
     program_id = glCreateProgram();
     for (Shader* shader : shaders) {
         glAttachShader(program_id, shader->get_id());
