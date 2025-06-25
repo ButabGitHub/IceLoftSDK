@@ -38,6 +38,7 @@
     <ClCompile Include="..\Includes\ImGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_tables.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_widgets.cpp" />
+    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\IclClasses\Game.h" />
@@ -65,6 +66,7 @@
     <ClInclude Include="..\Includes\ImGUI\imstb_textedit.h" />
     <ClInclude Include="..\Includes\ImGUI\imstb_truetype.h" />
     <ClInclude Include="..\Includes\stb_image.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\x64\Debug\billboard.frag.glsl" />

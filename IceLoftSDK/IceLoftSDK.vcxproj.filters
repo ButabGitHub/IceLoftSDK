@@ -87,6 +87,9 @@
     <ClCompile Include="..\IclClasses\ShaderProgram.cpp">
       <Filter>Header files\IclClasses</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Includes\ImGUI\imstb_textedit.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="..\IclClasses\ShaderProgram.h">
       <Filter>Header files\IclClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
