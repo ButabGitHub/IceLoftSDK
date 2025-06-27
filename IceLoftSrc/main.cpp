@@ -22,6 +22,7 @@
 #include <icl/engine.h>
 
 #include "../IclClasses/ShaderProgram.h"
+#include "../IclClasses/Node.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -252,6 +253,8 @@ int main() {
     glUseProgram(textureprog.get_id());
     textureprog.set_uniform("material.diffuse", 0);
     textureprog.set_uniform("material.diffuse", 1);
+
+
 
     // Process loop
     while (!glfwWindowShouldClose(window)) {

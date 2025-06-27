@@ -90,6 +90,9 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="..\IclClasses\Node.cpp">
+      <Filter>Header files\IclClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Includes\ImGUI\imstb_textedit.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Node.h">
+      <Filter>Header files\IclClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

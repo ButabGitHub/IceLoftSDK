@@ -23,7 +23,7 @@ public:
     void AddChild(std::unique_ptr<Node>);
 
     std::unique_ptr<Node>& GetChild(const int child); // GetChild by it's ID
-    std::unique_ptr<Node>& GetChild(const std::string child); // GetChild by it's name
+    std::unique_ptr<Node>& GetChild(const std::string& child); // GetChild by it's name
 
     void Destroy(); // Destroy the Node
     
