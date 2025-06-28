@@ -254,7 +254,18 @@ int main() {
     textureprog.set_uniform("material.diffuse", 0);
     textureprog.set_uniform("material.diffuse", 1);
 
+    std::unique_ptr<Node> root = std::make_unique<Node>();
+    root->name = "root";
 
+    std::unique_ptr<Node> rootChild = std::make_unique<Node>();
+    rootChild->name = "testChild";
+
+    root->AddChild(std::move(rootChild));
+
+    std::cout << root->GetChild("testChild")->name << "\n";
+
+    root->GetChild("testChild")->name = "completely_different_name_lol";
+    std::cout << root->GetChild("completely_different_name_lol")->name << "\n";
 
     // Process loop
     while (!glfwWindowShouldClose(window)) {

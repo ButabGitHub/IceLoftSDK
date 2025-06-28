@@ -6,6 +6,11 @@ void Node::Init() {
 	}
 }
 
+void Node::AddChild(std::unique_ptr<Node> child) {
+    child->parent = this;
+    children.push_back(std::move(child));
+}
+
 std::unique_ptr<Node>& Node::GetChild(const int child) {
     if (child < 0 || child >= static_cast<int>(children.size()))
         std::cerr << "\x1b[38;5;9m\ Invalid child index: " << child << ", at the node named \"" << this->name << "\" .\n";
