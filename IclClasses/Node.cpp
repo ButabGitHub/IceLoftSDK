@@ -6,6 +6,16 @@ void Node::Init() {
 	}
 }
 
+void Node::Update(double delta) {
+    for (const std::unique_ptr<Node>& child : children) {
+        child->Update(delta);
+    }
+}
+
+void Node::End() {
+    // Placeholder, empty
+}
+
 void Node::AddChild(std::unique_ptr<Node> child) {
     child->parent = this;
     children.push_back(std::move(child));

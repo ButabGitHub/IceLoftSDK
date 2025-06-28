@@ -39,7 +39,6 @@
     <ClCompile Include="..\Includes\ImGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_tables.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_widgets.cpp" />
-    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\IclClasses\Game.h" />
