@@ -23,6 +23,7 @@
 
 #include "../IclClasses/ShaderProgram.h"
 #include "../IclClasses/Node.h"
+#include "../IclClasses/Node/Root.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -253,19 +254,17 @@ int main() {
     glUseProgram(textureprog.get_id());
     textureprog.set_uniform("material.diffuse", 0);
     textureprog.set_uniform("material.diffuse", 1);
+    
+    auto testChild = std::make_unique<Node>();
+    testChild->name = "test";
 
-    std::unique_ptr<Node> root = std::make_unique<Node>();
-    root->name = "root";
+    auto child2 = std::make_unique<Node>();
+    child2->name = "ANOTHER CHILD";
 
-    std::unique_ptr<Node> rootChild = std::make_unique<Node>();
-    rootChild->name = "testChild";
+    testChild->AddChild(std::move(child2));
+    root->AddChild(std::move(testChild));
 
-    root->AddChild(std::move(rootChild));
-
-    std::cout << root->GetChild("testChild")->name << "\n";
-
-    root->GetChild("testChild")->name = "completely_different_name_lol";
-    std::cout << root->GetChild("completely_different_name_lol")->name << "\n";
+    std::cout << root->GetChild("test")->GetChild("ANOTHER CHILD")->name;
 
     // Process loop
     while (!glfwWindowShouldClose(window)) {

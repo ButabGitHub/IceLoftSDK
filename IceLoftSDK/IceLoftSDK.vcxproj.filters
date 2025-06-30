@@ -28,6 +28,9 @@
     <Filter Include="Header files\IclClasses">
       <UniqueIdentifier>{db416c3a-d691-4109-b96f-0024323b06f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header files\IclClasses\Node">
+      <UniqueIdentifier>{1a83ee25-59da-46a5-98bd-5e10325d19b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\IceLoftSrc\glad.c">
@@ -87,11 +90,14 @@
     <ClCompile Include="..\IclClasses\ShaderProgram.cpp">
       <Filter>Header files\IclClasses</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Source files</Filter>
-    </ClCompile>
     <ClCompile Include="..\IclClasses\Node.cpp">
       <Filter>Header files\IclClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Node\Root.cpp">
+      <Filter>Header files\IclClasses\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Node\Node3D.cpp">
+      <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +181,12 @@
     </ClInclude>
     <ClInclude Include="..\IclClasses\Node.h">
       <Filter>Header files\IclClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Node\Root.h">
+      <Filter>Header files\IclClasses\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Node\Node3D.h">
+      <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

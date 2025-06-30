@@ -26,6 +26,7 @@
     <ClCompile Include="..\IclClasses\Game.cpp" />
     <ClCompile Include="..\IclClasses\IclShader.cpp" />
     <ClCompile Include="..\IclClasses\Node.cpp" />
+    <ClCompile Include="..\IclClasses\Node\Node3D.cpp" />
     <ClCompile Include="..\IclClasses\Resource.cpp" />
     <ClCompile Include="..\IclClasses\ResourceManager.cpp" />
     <ClCompile Include="..\IclClasses\ShaderProgram.cpp" />
@@ -39,11 +40,13 @@
     <ClCompile Include="..\Includes\ImGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_tables.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_widgets.cpp" />
+    <ClCompile Include="..\IclClasses\Node\Root.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\IclClasses\Game.h" />
     <ClInclude Include="..\IclClasses\IclShader.h" />
     <ClInclude Include="..\IclClasses\Node.h" />
+    <ClInclude Include="..\IclClasses\Node\Node3D.h" />
     <ClInclude Include="..\IclClasses\Resource.h" />
     <ClInclude Include="..\IclClasses\ResourceManager.h" />
     <ClInclude Include="..\IclClasses\ShaderProgram.h" />
@@ -68,6 +71,7 @@
     <ClInclude Include="..\Includes\ImGUI\imstb_truetype.h" />
     <ClInclude Include="..\Includes\stb_image.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="..\IclClasses\Node\Root.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\x64\Debug\billboard.frag.glsl" />
