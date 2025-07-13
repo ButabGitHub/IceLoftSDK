@@ -25,9 +25,11 @@ public:
     std::unique_ptr<Node>& GetChild(const int child); // GetChild by it's ID
     std::unique_ptr<Node>& GetChild(const std::string& child); // GetChild by it's name
 
+    Node* GetParent(); // GetParent
+
     void Destroy(); // Destroy the Node
     
-    std::vector<std::unique_ptr<Node>> GetChildren();
+    /*std::vector<std::unique_ptr<Node>> GetChildren();*/
 
     // Idk what I can add here
 

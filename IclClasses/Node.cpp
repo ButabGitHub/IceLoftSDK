@@ -37,3 +37,10 @@ std::unique_ptr<Node>& Node::GetChild(const std::string& child) {
     std::cerr << "\x1b[38;5;9m\ Invalid child name: " << child << ", at the node named \"" << this->name << "\" .\n";
 }
 
+Node* Node::GetParent() {
+    return parent;
+}
+
+//std::vector<std::unique_ptr<Node>> Node::GetChildren() {
+//    return children;
+//}

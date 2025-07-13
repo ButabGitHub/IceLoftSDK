@@ -97,7 +97,10 @@
       <Filter>Header files\IclClasses\Node</Filter>
     </ClCompile>
     <ClCompile Include="..\IclClasses\Node\Node3D.cpp">
-      <Filter>Source files</Filter>
+      <Filter>Header files\IclClasses\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Node\Transform.cpp">
+      <Filter>Header files\IclClasses\Node</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +179,6 @@
     <ClInclude Include="..\IclClasses\ShaderProgram.h">
       <Filter>Header files\IclClasses</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
     <ClInclude Include="..\IclClasses\Node.h">
       <Filter>Header files\IclClasses</Filter>
     </ClInclude>
@@ -186,7 +186,10 @@
       <Filter>Header files\IclClasses\Node</Filter>
     </ClInclude>
     <ClInclude Include="..\IclClasses\Node\Node3D.h">
-      <Filter>Header files</Filter>
+      <Filter>Header files\IclClasses\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Node\Transform.h">
+      <Filter>Header files\IclClasses\Node</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

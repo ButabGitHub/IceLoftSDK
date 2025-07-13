@@ -38,7 +38,7 @@ bool IsKeyPressedOnce(GLFWwindow* window, int key);
 void setImGUIStuff();
 
 // Window properties
-const unsigned int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 600;
+const unsigned int WINDOW_WIDTH = 1280, WINDOW_HEIGHT = 720;
 unsigned int WIN_CURRENT_W = WINDOW_WIDTH, WIN_CURRENT_H = WINDOW_HEIGHT;
 const std::string WINDOW_TITLE = "IceLoft";
 
@@ -53,13 +53,20 @@ float lastX = WINDOW_WIDTH / 2.0f;
 float lastY = WINDOW_HEIGHT / 2.0f;
 bool canControl = false;
 
-// Timing
-float deltaTime = 0.0f;	// Time between current frame and last frame (like in godot lol)
+// Delta
+float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f;
 
 // Lighting
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+
+class test : public Node {
+public:
+    void Init() override {
+        std::cout << "\x1b[38;5;70m\ Hello test!!";
+    }
+};
 
 int main() {
     glfwInit();
@@ -78,12 +85,15 @@ int main() {
         glfwTerminate();
         return -1;
     }
-    glfwMakeContextCurrent(window); // Making main window current context
+    glfwMakeContextCurrent(window); // Making main window current context 
+
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // Call viewport resize func everytime window resizes
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
-    glfwSwapInterval(1);
+
+    glfwSwapInterval(0); // Use to disable vsync (enabled by default)
+
     //glfwSetCursorPosCallback(window, cursor_position_callback);
 
     // Glad load all OpenGL function properties
@@ -101,10 +111,10 @@ int main() {
     glfwSetWindowIcon(window, 1, images);
     stbi_image_free(images[0].pixels);
 
-    // Enable face culling // NOTE: Doesn't work as expected for now sadly :(
-    /*glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
-    glFrontFace(GL_CCW);*/
+    // Enable face culling
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
 
     std::unique_ptr<Shader> texShaderFrag = Shader::Load("texture.frag.glsl");
     std::unique_ptr<Shader> texShaderVert = Shader::Load("texture.vert.glsl");
@@ -123,50 +133,55 @@ int main() {
     //--------------------------------------------------------------------------------------------------
 
     float vertices[] = {
-        // positions          // normals           // texture coords
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+        // positions          // normals           // tex coords
+        // Back face
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
 
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
+        // Front face
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f,
 
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+        // Left face
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+        // Right face
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
 
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
+         // Bottom face
+         -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+          0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+          0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+          0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+         -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+         -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
+         // Top face
+         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+          0.5f,  0.5f , 0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+          0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+          0.5f,  0.5f , 0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+         -0.5f,  0.5f , 0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f
     };
-
     float quadVertices[] = {
         // positions     // texCoords
         -0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // top left
@@ -241,6 +256,10 @@ int main() {
 
     ImGui::StyleColorsDark();
 
+    io.Fonts->AddFontFromFileTTF("fonts/Roboto/static/Roboto-Regular.ttf", 15.0f);
+    
+    ImFont* win_title_font = io.Fonts->AddFontFromFileTTF("fonts/Roboto/static/Roboto-Bold.ttf", 18.0f);
+
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
@@ -255,16 +274,20 @@ int main() {
     textureprog.set_uniform("material.diffuse", 0);
     textureprog.set_uniform("material.diffuse", 1);
     
-    auto testChild = std::make_unique<Node>();
-    testChild->name = "test";
+    root->Init();
 
+    auto child1 = std::make_unique<Node>();
     auto child2 = std::make_unique<Node>();
-    child2->name = "ANOTHER CHILD";
+    auto child3 = std::make_unique<Node>();
+    auto child4 = std::make_unique<Node>();
+    child4->name = "a";
 
-    testChild->AddChild(std::move(child2));
-    root->AddChild(std::move(testChild));
+    root->AddChild(std::move(child1));
+    root->GetChild(0)->AddChild(std::move(child2));
+    root->GetChild(0)->GetChild(0)->AddChild(std::move(child3));
+    root->GetChild(0)->GetChild(0)->GetChild(0)->AddChild(std::move(child4));
 
-    std::cout << root->GetChild("test")->GetChild("ANOTHER CHILD")->name;
+    std::cout << root->GetChild(0)->GetChild(0)->GetChild(0)->GetChild(0)->name;
 
     // Process loop
     while (!glfwWindowShouldClose(window)) {
