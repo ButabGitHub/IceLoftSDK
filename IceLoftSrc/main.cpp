@@ -21,9 +21,11 @@
 #include <icl/icl_texture.h>
 #include <icl/engine.h>
 
-#include "../IclClasses/ShaderProgram.h"
+#include "../IclClasses/Resource/ShaderProgram.h"
 #include "../IclClasses/Node.h"
 #include "../IclClasses/Node/Root.h"
+#include "../IclClasses/Engine/Viewport.h"
+#include "../IclClasses/Engine/Input.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -38,19 +40,22 @@ bool IsKeyPressedOnce(GLFWwindow* window, int key);
 void setImGUIStuff();
 
 // Window properties
-const unsigned int WINDOW_WIDTH = 1280, WINDOW_HEIGHT = 720;
-unsigned int WIN_CURRENT_W = WINDOW_WIDTH, WIN_CURRENT_H = WINDOW_HEIGHT;
+const uint16_t SCR_WIDTH = 1280, SCR_HEIGHT = 720;
+uint16_t WIN_CURRENT_W = SCR_WIDTH, WIN_CURRENT_H = SCR_HEIGHT;
 const std::string WINDOW_TITLE = "IceLoft";
+
+uint16_t SCR_CENTER_X, SCR_CENTER_y;
 
 bool ShowIclDebug = true;
 bool ShowImGUIDemo = false;
 bool ShowPerformanceWindow = false;
+bool IsFullscreen = false;
 
 // Camera 
 bool firstMouse = true;
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-float lastX = WINDOW_WIDTH / 2.0f;
-float lastY = WINDOW_HEIGHT / 2.0f;
+float lastX = SCR_WIDTH / 2.0f;
+float lastY = SCR_HEIGHT / 2.0f;
 bool canControl = false;
 
 // Delta
@@ -59,13 +64,41 @@ float lastFrame = 0.0f;
 
 // Lighting
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+glm::vec3 lightDir(-0.2f, -1.0f, -0.3f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
 class test : public Node {
 public:
     void Init() override {
+        Node::Init();
         std::cout << "\x1b[38;5;70m\ Hello test!!";
     }
+
+    void ProcessInput() override {
+        Node::ProcessInput();
+
+        if (Input::is_key_pressed(GLFW_KEY_SPACE)) {
+            std::cout << "Space was pressed!";
+            this->Destroy();
+        }
+    }
+
+};
+
+class test2 : public Node {
+public:
+    void Init() override {
+        Node::Init();
+        std::cout << "\x1b[38;5;70m\ Hello test!!";
+    }
+
+    void ProcessInput() override {
+        Node::ProcessInput();
+
+        if (Input::is_key_pressed(GLFW_KEY_B))
+            std::cout << "Space dsdfnm";
+    }
+
 };
 
 int main() {
@@ -79,7 +112,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Only for MacOS
 #endif
 
-    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE.c_str(), NULL, NULL); // Main GLFW Window
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, WINDOW_TITLE.c_str(), NULL, NULL); // Main GLFW Window
     if (window == NULL) {
         std::cout << "\x1b[38;5;9mFailed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -90,7 +123,10 @@ int main() {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // Call viewport resize func everytime window resizes
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
+    glfwSetKeyCallback(window, Input::key_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
+
+    glfwSetWindowAspectRatio(window, 16, 9); // Set aspect ration to 16:9
 
     glfwSwapInterval(0); // Use to disable vsync (enabled by default)
 
@@ -104,6 +140,8 @@ int main() {
 
     // Enable depth buffer
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
     glEnable(GL_MULTISAMPLE);
 
     GLFWimage images[1];
@@ -116,24 +154,21 @@ int main() {
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
 
+    // Shaders & shader programs
     std::unique_ptr<Shader> texShaderFrag = Shader::Load("texture.frag.glsl");
     std::unique_ptr<Shader> texShaderVert = Shader::Load("texture.vert.glsl");
-
-    std::unique_ptr<Shader> lightSrcShaderFrag = Shader::Load("lightsrc.frag.glsl");
-    std::unique_ptr<Shader> lightSrcShaderVert = Shader::Load("lightsrc.vert.glsl");
 
     std::unique_ptr<Shader> billboardShaderFrag = Shader::Load("billboard.frag.glsl");
     std::unique_ptr<Shader> billboardShaderVert = Shader::Load("billboard.vert.glsl");
 
     ShaderProgram textureprog = { texShaderFrag.get(), texShaderVert.get() };
-    ShaderProgram lightsrcprog = { lightSrcShaderFrag.get(), lightSrcShaderVert.get() };
     ShaderProgram billboardprog = { billboardShaderFrag.get(), billboardShaderVert.get() };
 
-    // All rendering shit below
+    // All rendering stuff below
     //--------------------------------------------------------------------------------------------------
 
     float vertices[] = {
-        // positions          // normals           // tex coords
+        // Positions          // Normals           // TexCoords
         // Back face
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
          0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
@@ -183,22 +218,22 @@ int main() {
          -0.5f,  0.5f , 0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f
     };
     float quadVertices[] = {
-        // positions     // texCoords
-        -0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // top left
-         0.5f,  0.5f, 0.0f,  1.0f, 1.0f, // top right
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f,  0.0f, 0.0f  // bottom left
+        // Positions     // TexCoords
+        -0.5f,  0.5f, 0.0f,  0.0f, 1.0f, // Top left
+        -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, // Bottom left
+         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, // Bottom right
+         0.5f,  0.5f, 0.0f,  1.0f, 1.0f  // Top right
     };
     unsigned int quadIndices[] = {
         0, 1, 2,
         2, 3, 0
     };
 
-    unsigned int VBO, cubeVAO;
+    GLuint cubeVBO, cubeVAO;
     glGenVertexArrays(1, &cubeVAO);
-    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &cubeVBO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glBindVertexArray(cubeVAO);
@@ -215,16 +250,12 @@ int main() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    unsigned int lightCubeVAO;
-    glGenVertexArrays(1, &lightCubeVAO);
-    glBindVertexArray(lightCubeVAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // note that we update the lamp's position attribute's stride to reflect the updated buffer data
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+    // Note that we update the light's position attribute's stride to reflect the updated buffer data
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    unsigned int quadVAO, quadVBO, quadEBO;
+    GLuint quadVAO, quadVBO, quadEBO;
     glGenVertexArrays(1, &quadVAO);
     glGenBuffers(1, &quadVBO);
     glGenBuffers(1, &quadEBO);
@@ -248,31 +279,29 @@ int main() {
     //--------------------------------------------------------------------------------------------------
 
     // ImGUI stuff below
-    //--------------------------------------------------------------------------------------------------
+    {
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+        ImGui::StyleColorsDark();
 
-    ImGui::StyleColorsDark();
+        io.Fonts->AddFontFromFileTTF("fonts/Roboto/static/Roboto-Regular.ttf", 15.0f);
 
-    io.Fonts->AddFontFromFileTTF("fonts/Roboto/static/Roboto-Regular.ttf", 15.0f);
-    
-    ImFont* win_title_font = io.Fonts->AddFontFromFileTTF("fonts/Roboto/static/Roboto-Bold.ttf", 18.0f);
+        ImFont* win_title_font = io.Fonts->AddFontFromFileTTF("fonts/Roboto/static/Roboto-Bold.ttf", 18.0f);
 
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
-
-    //--------------------------------------------------------------------------------------------------
+        ImGui_ImplGlfw_InitForOpenGL(window, true);
+        ImGui_ImplOpenGL3_Init("#version 330");
+    }
 
     unsigned int missingTexture = icl::loadTexture("assets/textures/missingTexture.png");
     unsigned int containerTexture = icl::loadTexture("assets/textures/container2.png");
     unsigned int specular_containerTexture = icl::loadTexture("assets/textures/container2_specular.png");
-    unsigned int iconTex = icl::loadTexture("assets/icons/Light.png");
+    unsigned int iconTex = icl::loadTexture("assets/icons/editor_PointLight.png");
 
     glUseProgram(textureprog.get_id());
     textureprog.set_uniform("material.diffuse", 0);
-    textureprog.set_uniform("material.diffuse", 1);
+    textureprog.set_uniform("material.specular", 1);
     
     root->Init();
 
@@ -280,8 +309,12 @@ int main() {
     auto child2 = std::make_unique<Node>();
     auto child3 = std::make_unique<Node>();
     auto child4 = std::make_unique<Node>();
+    auto testt = std::make_unique<test>();
+    auto testtt = std::make_unique<test2>();
     child4->name = "a";
 
+    testt->AddChild(std::move(testtt));
+    root->AddChild(std::move(testt));
     root->AddChild(std::move(child1));
     root->GetChild(0)->AddChild(std::move(child2));
     root->GetChild(0)->GetChild(0)->AddChild(std::move(child3));
@@ -296,6 +329,8 @@ int main() {
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+
+        root->Update(deltaTime);
 
         // Process all the input
         processInput(window);
@@ -319,34 +354,33 @@ int main() {
 
         glUseProgram(textureprog.get_id());
 
+        // Render object
+        //textureprog.set_uniform("light.position", lightPos);
+        textureprog.set_uniform("light.direction", lightDir);
+        textureprog.set_uniform("viewPos", camera.Position);
+
         // Set projection matrix
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Fov), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         textureprog.set_uniform("projection", projection);
 
         // Set view matrix
         glm::mat4 view = camera.GetViewMatrix();
         textureprog.set_uniform("view", view);
 
-        // Render object
-        unsigned int transformLoc = glGetUniformLocation(textureprog.get_id(), "transform");
+        textureprog.set_uniform("light.ambient", glm::vec3(0.0f));
+        textureprog.set_uniform("light.diffuse", lightColor); // Diffuse is the main color of the light
+        lightColor[0] = static_cast<float>(sin(glfwGetTime() / 1.9 + 0.6));
+        lightColor[1] = static_cast<float>(sin(glfwGetTime() / 2.1 + 0.4));
+        lightColor[2] = static_cast<float>(sin(glfwGetTime() / 2.0 + 0.25));
+        textureprog.set_uniform("light.specular", glm::vec3(1.0f));
 
-        textureprog.set_uniform("lightColor", lightColor);
-        textureprog.set_uniform("light.position", lightPos);
-        textureprog.set_uniform("viewPos", camera.Position);
-
-        textureprog.set_uniform("light.ambient", glm::vec3(0.2f));
-        textureprog.set_uniform("light.diffuse", glm::vec3(0.5f));
-        textureprog.set_uniform("light.specular", glm::vec3(0.1f));
-
-        textureprog.set_uniform("material.shininess", 64.0f);
+        textureprog.set_uniform("material.shininess", 4.0f);
 
         // World transformation
         static float rotation_degrees = 0.0f;
+
         glm::mat4 model = glm::mat4(1.0f);
-
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-        model =  glm::rotate(model, glm::radians(rotation_degrees), glm::vec3(0.0f, 1.0f, 0.0f));
-
+        model = glm::rotate(model, glm::radians(rotation_degrees), glm::vec3(0.0f, 1.0f, 0.0f));
         textureprog.set_uniform("model", model);
 
         // Render the cube
@@ -358,27 +392,25 @@ int main() {
         glBindVertexArray(cubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        // Also draw the lamp object
-        glUseProgram(lightsrcprog.get_id());
-        lightsrcprog.set_uniform("projection", projection);
-        lightsrcprog.set_uniform("view", view);
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f)); // A smaller cube
-        lightsrcprog.set_uniform("model", model);
-        lightsrcprog.set_uniform("sColor", lightColor);
+        /*for (float x = 0.0f; x < 20.0f; x += 0.5f) {
+            for (float y = 0.0f; y < 20.0f; y += 0.5f) {
+                for (float z = 0.0f; z < 20.0f; z += 0.5f) {
+                    glm::mat4 model = glm::mat4(1.0f);
+                    model = glm::translate(model, glm::vec3(x, y, z));
+                    textureprog.set_uniform("model", model);
 
-        glBindVertexArray(lightCubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+                    glDrawArrays(GL_TRIANGLES, 0, 36);
+                }
+            }
+        }*/
 
-        // Render light source's (cube's) icon
-        glDisable(GL_DEPTH_TEST);
+        // Render light source's icon
         glUseProgram(billboardprog.get_id());
         billboardprog.set_uniform("view", view);
         billboardprog.set_uniform("projection", projection);
         billboardprog.set_uniform("billboardPos", lightPos);
-        billboardprog.set_uniform("size", 0.2f); // size in world units
-        billboardprog.set_uniform("tintColor", glm::vec3(1.0f, 1.0f, 0.8f));
+        billboardprog.set_uniform("size", 0.5f); // size in world units
+        billboardprog.set_uniform("tintColor", lightColor);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, iconTex);
@@ -387,7 +419,6 @@ int main() {
         glBindVertexArray(quadVAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
-        glEnable(GL_DEPTH_TEST);
 
         // ImGui window setup
         if ( ShowIclDebug ) {
@@ -430,9 +461,14 @@ int main() {
                     }
 
                     ImGui::Text("Light position: ");
-                    if (ImGui::DragFloat("x", &lightPos[0], 0.1f));
-                    if (ImGui::DragFloat("y", &lightPos[1], 0.1f));
-                    if (ImGui::DragFloat("z", &lightPos[2], 0.1f));
+                    if (ImGui::DragFloat("px", &lightPos[0], 0.1f));
+                    if (ImGui::DragFloat("py", &lightPos[1], 0.1f));
+                    if (ImGui::DragFloat("pz", &lightPos[2], 0.1f));
+
+                    ImGui::Text("Light direction: ");
+                    if (ImGui::DragFloat("rx", &lightDir[0], 0.1f));
+                    if (ImGui::DragFloat("ry", &lightDir[1], 0.1f));
+                    if (ImGui::DragFloat("rz", &lightDir[2], 0.1f));
                 }
                 // Category for ImGui things
                 if (ImGui::CollapsingHeader("Window")) {
@@ -440,7 +476,7 @@ int main() {
                         ImGui::SetWindowSize("IceLoft Debug", ImVec2(500, 200));
                     }
                     if (ImGui::Button("Reset editor window size")) {
-                        glfwSetWindowSize(window, WINDOW_WIDTH, WINDOW_HEIGHT);
+                        glfwSetWindowSize(window, SCR_WIDTH, SCR_HEIGHT);
                         glfwRestoreWindow(window);
                     }
                 }
@@ -450,7 +486,7 @@ int main() {
             ImGui::End(); 
             }
 
-        if (ShowPerformanceWindow) {
+        if ( ShowPerformanceWindow ) {
             // Get viewport and calculate bottom-right position
             ImVec2 window_size = ImVec2(200, 60); // Adjust as needed
             ImVec2 viewport_size = ImGui::GetMainViewport()->Size;
@@ -477,6 +513,8 @@ int main() {
         glfwPollEvents();
     }
 
+    root->Destroy();
+
     // Clear ImGui processes
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
@@ -484,8 +522,9 @@ int main() {
 
     // De-allocate outlived purpose resources
     glDeleteVertexArrays(1, &cubeVAO);
-    glDeleteVertexArrays(1, &lightCubeVAO);
-    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &cubeVBO);
+    glDeleteVertexArrays(1, &quadVAO);
+    glDeleteBuffers(1, &quadVBO);
 
     glfwTerminate(); // Terminate all GLFW resources
     return 0;
@@ -500,26 +539,39 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 
 // Process all the input
 void processInput(GLFWwindow* window) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) 
-        glfwSetWindowShouldClose(window, true); // Close window when 'Esc' key is pressed
+    /*if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) 
+        glfwSetWindowShouldClose(window, true);*/ // Close window when 'Esc' key is pressed
     if (IsKeyPressedOnce(window, GLFW_KEY_Q))
         ShowImGUIDemo = !ShowImGUIDemo;
 
     // Camera input
     if (canControl) {
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        if (Input::is_key_pressed(GLFW_KEY_W))
             camera.ProcessKeyboard(FORWARD, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        if (Input::is_key_pressed(GLFW_KEY_S))
             camera.ProcessKeyboard(BACKWARD, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        if (Input::is_key_pressed(GLFW_KEY_A))
             camera.ProcessKeyboard(LEFT, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        if (Input::is_key_pressed(GLFW_KEY_D))
             camera.ProcessKeyboard(RIGHT, deltaTime);
     }
 
-    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_REPEAT || glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-        if (IsKeyPressedOnce(window, GLFW_KEY_F3)) {
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_REPEAT || Input::is_key_pressed(GLFW_KEY_LEFT_SHIFT)) {
+        if (IsKeyPressedOnce(GLFW_KEY_F3)) {
             ShowPerformanceWindow = !ShowPerformanceWindow;
+        }
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_REPEAT || Input::is_key_pressed(GLFW_KEY_LEFT_ALT)) {
+        if (IsKeyPressedOnce(GLFW_KEY_ENTER)) {
+            const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+            if (!IsFullscreen) {
+                glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
+            }
+            else {
+                glfwSetWindowMonitor(window, NULL, mode->width / 7, mode->height / 7, SCR_WIDTH, SCR_HEIGHT, GLFW_DONT_CARE);
+            }
+            IsFullscreen = !IsFullscreen;
         }
     }
 }
@@ -536,7 +588,7 @@ void showEditorMenu() {
         }
         if (ImGui::BeginMenu("IclDebug")) {
             if (ImGui::MenuItem("Show Iceloft debug menu", "idk", &ShowIclDebug)) {}
-            if (ImGui::MenuItem("Show ImGUI debug menu", "CTRL+SHIFT+", &ShowImGUIDemo)) {}
+            if (ImGui::MenuItem("Show ImGUI debug menu", "Q", &ShowImGUIDemo)) {}
             if (ImGui::MenuItem("Show Performance debug menu", "SHIFT+F3", &ShowPerformanceWindow)) {}
             ImGui::EndMenu();
         }
@@ -548,8 +600,8 @@ void showEditorMenu() {
 
 std::unordered_map<int, bool> keyWasDownLastFrame;
 
-bool IsKeyPressedOnce(GLFWwindow* window, int key) {
-    bool isDownNow = glfwGetKey(window, key) == GLFW_PRESS;
+bool IsKeyPressedOnce(int key) {
+    bool isDownNow = Input::is_key_pressed(key);
     bool wasDownBefore = keyWasDownLastFrame[key];
 
     keyWasDownLastFrame[key] = isDownNow;
@@ -560,7 +612,6 @@ bool IsKeyPressedOnce(GLFWwindow* window, int key) {
 // Whenever the mouse moves this GLFW callback is called
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn) {
     if (canControl) {
-        //glfwSetCursorPos(window, WIN_CURRENT_W / 2, WIN_CURRENT_H / 2);
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
         float xpos = static_cast<float>(xposIn);

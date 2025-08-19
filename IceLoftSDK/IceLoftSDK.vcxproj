@@ -23,17 +23,17 @@
     <ClCompile Include="..\IceLoftSrc\main.cpp" />
     <ClCompile Include="..\IceLoftSrc\program.cpp" />
     <ClCompile Include="..\IceLoftSrc\stb_img.cpp" />
-    <ClCompile Include="..\IclClasses\Game.cpp" />
-    <ClCompile Include="..\IclClasses\IclShader.cpp" />
+    <ClCompile Include="..\IclClasses\Drawable.cpp" />
+    <ClCompile Include="..\IclClasses\Engine\Input.cpp" />
+    <ClCompile Include="..\IclClasses\Engine\Viewport.cpp" />
     <ClCompile Include="..\IclClasses\Node.cpp" />
     <ClCompile Include="..\IclClasses\Node\Node3D.cpp" />
     <ClCompile Include="..\IclClasses\Node\Transform.cpp" />
     <ClCompile Include="..\IclClasses\Resource.cpp" />
-    <ClCompile Include="..\IclClasses\ResourceManager.cpp" />
-    <ClCompile Include="..\IclClasses\ShaderProgram.cpp" />
-    <ClCompile Include="..\IclClasses\Texture.cpp" />
-    <ClCompile Include="..\Includes\icl\iceloft_debug.cpp" />
-    <ClCompile Include="..\Includes\icl\inpt.cpp" />
+    <ClCompile Include="..\IclClasses\Resource\IclShader.cpp" />
+    <ClCompile Include="..\IclClasses\Resource\ShaderProgram.cpp" />
+    <ClCompile Include="..\IclClasses\Resource\Texture.cpp" />
+    <ClCompile Include="..\IclClasses\Resource\TextureAtlas.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_demo.cpp" />
     <ClCompile Include="..\Includes\ImGUI\imgui_draw.cpp" />
@@ -44,16 +44,17 @@
     <ClCompile Include="..\IclClasses\Node\Root.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\IclClasses\Game.h" />
-    <ClInclude Include="..\IclClasses\IclShader.h" />
+    <ClInclude Include="..\IclClasses\Drawable.h" />
+    <ClInclude Include="..\IclClasses\Engine\Input.h" />
+    <ClInclude Include="..\IclClasses\Engine\Viewport.h" />
     <ClInclude Include="..\IclClasses\Node.h" />
     <ClInclude Include="..\IclClasses\Node\Node3D.h" />
     <ClInclude Include="..\IclClasses\Node\Transform.h" />
     <ClInclude Include="..\IclClasses\Resource.h" />
-    <ClInclude Include="..\IclClasses\ResourceManager.h" />
-    <ClInclude Include="..\IclClasses\ShaderProgram.h" />
-    <ClInclude Include="..\IclClasses\Texture.h" />
-    <ClInclude Include="..\Includes\engineGraphicalClasses\shader_s.h" />
+    <ClInclude Include="..\IclClasses\Resource\IclShader.h" />
+    <ClInclude Include="..\IclClasses\Resource\ShaderProgram.h" />
+    <ClInclude Include="..\IclClasses\Resource\Texture.h" />
+    <ClInclude Include="..\IclClasses\Resource\TextureAtlas.h" />
     <ClInclude Include="..\Includes\glm\glm.hpp" />
     <ClInclude Include="..\Includes\glm\gtc\matrix_transform.hpp" />
     <ClInclude Include="..\Includes\glm\gtc\type_ptr.hpp" />
@@ -77,8 +78,6 @@
   <ItemGroup>
     <None Include="..\x64\Debug\billboard.frag.glsl" />
     <None Include="..\x64\Debug\billboard.vert.glsl" />
-    <None Include="..\x64\Debug\lightsrc.frag.glsl" />
-    <None Include="..\x64\Debug\lightsrc.vert.glsl" />
     <None Include="..\x64\Debug\texture.frag.glsl" />
     <None Include="..\x64\Debug\texture.vert.glsl" />
   </ItemGroup>
@@ -88,6 +87,7 @@
     <ProjectGuid>{87a15e2b-a781-40e7-81f6-2e6472b3bfc0}</ProjectGuid>
     <RootNamespace>IceLoftSDK</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>IceLoftTest</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -142,11 +142,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\IceLoft\IceLoftSDK\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\IceLoft\IceLoftSDK\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\IceLoft\IceLoftSDK\Includes;E:\IceLoft\IceLoftSDK\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\IceLoft\IceLoftSDK\Libs;E:\IceLoft\IceLoftSDK\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>E:\IceLoft\IceLoftSDK\Includes;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>E:\IceLoft\IceLoftSDK\Libs;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -182,11 +184,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -197,12 +200,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

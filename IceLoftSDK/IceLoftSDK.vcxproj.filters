@@ -22,14 +22,17 @@
     <Filter Include="Header files\icl">
       <UniqueIdentifier>{d5ba1ca6-fa01-4d97-a3ff-9267d2ff7a01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source files\icl">
-      <UniqueIdentifier>{d193c024-227b-45fd-b05f-c9080e0752aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header files\IclClasses">
       <UniqueIdentifier>{db416c3a-d691-4109-b96f-0024323b06f9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header files\IclClasses\Node">
       <UniqueIdentifier>{1a83ee25-59da-46a5-98bd-5e10325d19b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\IclClasses\Engine">
+      <UniqueIdentifier>{4affb7d6-819f-4a23-8402-cdb2f8d614a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\IclClasses\Resource">
+      <UniqueIdentifier>{ebf09591-c032-454d-96bd-196963425c88}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,34 +66,10 @@
     <ClCompile Include="..\IceLoftSrc\main.cpp">
       <Filter>Source files\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Includes\icl\iceloft_debug.cpp">
-      <Filter>Source files\icl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Includes\icl\inpt.cpp">
-      <Filter>Source files\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\IceLoftSrc\program.cpp">
       <Filter>Source files\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\IclClasses\Game.cpp">
-      <Filter>Header files\IclClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IclClasses\IclShader.cpp">
-      <Filter>Header files\IclClasses</Filter>
-    </ClCompile>
     <ClCompile Include="..\IclClasses\Resource.cpp">
-      <Filter>Header files\IclClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IclClasses\ResourceManager.cpp">
-      <Filter>Header files\IclClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IclClasses\Texture.cpp">
-      <Filter>Header files\IclClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IclClasses\ShaderProgram.cpp">
-      <Filter>Header files\IclClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IclClasses\Node.cpp">
       <Filter>Header files\IclClasses</Filter>
     </ClCompile>
     <ClCompile Include="..\IclClasses\Node\Root.cpp">
@@ -101,6 +80,30 @@
     </ClCompile>
     <ClCompile Include="..\IclClasses\Node\Transform.cpp">
       <Filter>Header files\IclClasses\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Node.cpp">
+      <Filter>Header files\IclClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Engine\Viewport.cpp">
+      <Filter>Header files\IclClasses\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Drawable.cpp">
+      <Filter>Header files\IclClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Resource\IclShader.cpp">
+      <Filter>Header files\IclClasses\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Resource\ShaderProgram.cpp">
+      <Filter>Header files\IclClasses\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Resource\Texture.cpp">
+      <Filter>Header files\IclClasses\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Resource\TextureAtlas.cpp">
+      <Filter>Header files\IclClasses\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IclClasses\Engine\Input.cpp">
+      <Filter>Header files\IclClasses\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +129,6 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="..\Includes\ImGUI\imgui_impl_opengl3_loader.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Includes\engineGraphicalClasses\shader_s.h">
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="..\Includes\stb_image.h">
@@ -161,25 +161,7 @@
     <ClInclude Include="..\Includes\icl\engine.h">
       <Filter>Header files\icl</Filter>
     </ClInclude>
-    <ClInclude Include="..\IclClasses\Game.h">
-      <Filter>Header files\IclClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IclClasses\IclShader.h">
-      <Filter>Header files\IclClasses</Filter>
-    </ClInclude>
     <ClInclude Include="..\IclClasses\Resource.h">
-      <Filter>Header files\IclClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IclClasses\ResourceManager.h">
-      <Filter>Header files\IclClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IclClasses\Texture.h">
-      <Filter>Header files\IclClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IclClasses\ShaderProgram.h">
-      <Filter>Header files\IclClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IclClasses\Node.h">
       <Filter>Header files\IclClasses</Filter>
     </ClInclude>
     <ClInclude Include="..\IclClasses\Node\Root.h">
@@ -191,18 +173,36 @@
     <ClInclude Include="..\IclClasses\Node\Transform.h">
       <Filter>Header files\IclClasses\Node</Filter>
     </ClInclude>
+    <ClInclude Include="..\IclClasses\Node.h">
+      <Filter>Header files\IclClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Engine\Viewport.h">
+      <Filter>Header files\IclClasses\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Drawable.h">
+      <Filter>Header files\IclClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Resource\IclShader.h">
+      <Filter>Header files\IclClasses\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Resource\ShaderProgram.h">
+      <Filter>Header files\IclClasses\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Resource\Texture.h">
+      <Filter>Header files\IclClasses\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Resource\TextureAtlas.h">
+      <Filter>Header files\IclClasses\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IclClasses\Engine\Input.h">
+      <Filter>Header files\IclClasses\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\x64\Debug\texture.vert.glsl">
       <Filter>Resource files\shaders</Filter>
     </None>
     <None Include="..\x64\Debug\texture.frag.glsl">
-      <Filter>Resource files\shaders</Filter>
-    </None>
-    <None Include="..\x64\Debug\lightsrc.frag.glsl">
-      <Filter>Resource files\shaders</Filter>
-    </None>
-    <None Include="..\x64\Debug\lightsrc.vert.glsl">
       <Filter>Resource files\shaders</Filter>
     </None>
     <None Include="..\x64\Debug\billboard.vert.glsl">
