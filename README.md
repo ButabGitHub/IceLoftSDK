@@ -1,3 +1,3 @@
 # IceLoft
 
-My 3D game engine on OpenGL
+My 3D game engine made using OpenGL GLFW
