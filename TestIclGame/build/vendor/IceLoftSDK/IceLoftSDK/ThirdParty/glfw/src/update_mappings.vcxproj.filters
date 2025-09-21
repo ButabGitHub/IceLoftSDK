@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\IceLoft\IceLoftSDK\TestIclGame\build\CMakeFiles\d42410ff17f00b65a28ee7237aacbd47\update_mappings.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\src\mappings.h.in">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\CMake\GenerateMappings.cmake" />
+    <None Include="E:\IceLoft\IceLoftSDK\TestIclGame\build\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\src\CMakeFiles\update_mappings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F34BE75E-3449-3E6D-865B-0499755319CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{6B129D5C-D2BE-34FF-AD86-67FA1639030E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

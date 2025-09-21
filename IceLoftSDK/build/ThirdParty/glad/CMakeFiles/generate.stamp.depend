@@ -1,0 +1,12 @@
+# CMake generation dependency list for this directory.
+D:/Cmake/share/cmake-3.30/Modules/CMakeCInformation.cmake
+D:/Cmake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake
+D:/Cmake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake
+D:/Cmake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+D:/Cmake/share/cmake-3.30/Modules/Compiler/MSVC-C.cmake
+D:/Cmake/share/cmake-3.30/Modules/Compiler/MSVC.cmake
+D:/Cmake/share/cmake-3.30/Modules/Platform/Windows-MSVC-C.cmake
+D:/Cmake/share/cmake-3.30/Modules/Platform/Windows-MSVC.cmake
+E:/IceLoft/IceLoftSDK/IceLoftSDK/ThirdParty/glad/CMakeLists.txt
+E:/IceLoft/IceLoftSDK/IceLoftSDK/build/CMakeFiles/3.30.0/CMakeCCompiler.cmake
+E:/IceLoft/IceLoftSDK/IceLoftSDK/build/CMakeFiles/cmake.verify_globs

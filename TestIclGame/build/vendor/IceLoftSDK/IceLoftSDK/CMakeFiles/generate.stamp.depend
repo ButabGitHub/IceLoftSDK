@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+D:/Cmake/share/cmake-3.30/Modules/FindOpenGL.cmake
+D:/Cmake/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake
+D:/Cmake/share/cmake-3.30/Modules/FindPackageMessage.cmake
+E:/IceLoft/IceLoftSDK/TestIclGame/build/CMakeFiles/cmake.verify_globs
+E:/IceLoft/IceLoftSDK/TestIclGame/vendor/IceLoftSDK/IceLoftSDK/CMakeLists.txt
