@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 project(IceLoftEngine LANGUAGES CXX)
 
@@ -32,6 +32,9 @@ target_include_directories("${CMAKE_PROJECT_NAME}"
 )
 
 target_link_libraries("${CMAKE_PROJECT_NAME}" PUBLIC glfw glad glm)
+set_target_properties(IceLoftEngine PROPERTIES FOLDER "Engine")
+
+set_target_properties(glad glm PROPERTIES FOLDER "Dependencies")
 
 find_package(OpenGL REQUIRED)
 if (OPENGL_FOUND)

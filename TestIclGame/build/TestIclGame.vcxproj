@@ -90,13 +90,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -109,10 +109,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -135,12 +135,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -155,10 +155,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -181,12 +181,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -201,10 +201,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -227,13 +227,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -246,10 +246,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\IceLoft\IceLoftSDK\TestIclGame\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\src;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glfw\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glad\include;E:\IceLoft\IceLoftSDK\TestIclGame\vendor\IceLoftSDK\IceLoftSDK\ThirdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -328,7 +328,28 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui.cpp" />
+    <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_demo.cpp" />
+    <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_draw.cpp" />
+    <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_tables.cpp" />
+    <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\main.cpp" />
+    <ClCompile Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\stb_image\stb_image.cpp" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imconfig.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imgui_internal.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imstb_rectpack.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imstb_textedit.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\ImGUI\imstb_truetype.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\icl\engine.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\icl\icl_camera.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\icl\icl_texture.h" />
+    <ClInclude Include="E:\IceLoft\IceLoftSDK\TestIclGame\src\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="E:\IceLoft\IceLoftSDK\TestIclGame\build\ZERO_CHECK.vcxproj">
