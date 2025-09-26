@@ -374,7 +374,12 @@ CMakeSettings.json
 Win32
 x64
 Debug
+[Bb]uild
 Release
 MinSizeRel
 RelWithDebInfo
 *.opensdf
+
+# Compiled libraries
+*.lib
+*.dll

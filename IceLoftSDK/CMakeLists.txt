@@ -25,18 +25,18 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}
 
 add_library(IceLoftEngine STATIC ${ICL_SOURCES} ${ICL_HEADERS})
 
-target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${ICL_SOURCES} ${ICL_HEADERS})
-target_include_directories("${CMAKE_PROJECT_NAME}"
+target_sources(IceLoftEngine PRIVATE ${ICL_SOURCES} ${ICL_HEADERS})
+target_include_directories(IceLoftEngine
 	PUBLIC
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/"
 )
 
-target_link_libraries("${CMAKE_PROJECT_NAME}" PUBLIC glfw glad glm)
+target_link_libraries(IceLoftEngine PUBLIC glfw glad glm)
 set_target_properties(IceLoftEngine PROPERTIES FOLDER "Engine")
 
 set_target_properties(glad glm PROPERTIES FOLDER "Dependencies")
 
 find_package(OpenGL REQUIRED)
 if (OPENGL_FOUND)
-    target_link_libraries("${CMAKE_PROJECT_NAME}" PUBLIC OpenGL::GL)
+    target_link_libraries(IceLoftEngine PUBLIC OpenGL::GL)
 endif()
