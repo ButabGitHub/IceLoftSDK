@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 
 project(IceLoftEngine LANGUAGES CXX)
 
@@ -13,6 +13,7 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 add_subdirectory(ThirdParty/glfw)
 add_subdirectory(ThirdParty/glad)
 add_subdirectory(ThirdParty/glm)
+add_subdirectory(ThirdParty/stb_image)
 
 # Specify source and header files
 file(GLOB_RECURSE ICL_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -31,10 +32,10 @@ target_include_directories(IceLoftEngine
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/"
 )
 
-target_link_libraries(IceLoftEngine PUBLIC glfw glad glm)
+target_link_libraries(IceLoftEngine PUBLIC glad glm stb_image)
 set_target_properties(IceLoftEngine PROPERTIES FOLDER "Engine")
 
-set_target_properties(glad glm PROPERTIES FOLDER "Dependencies")
+set_target_properties(glad glm stb_image PROPERTIES FOLDER "Dependencies")
 
 find_package(OpenGL REQUIRED)
 if (OPENGL_FOUND)

@@ -1,14 +1,11 @@
 #pragma once
 
+#include <glad/glad.h>
+
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 #include "Engine/DataStructs.h"
-
-class EntryPoint {
-public:
-	static int Enter();
-};
 
 class Game {
 public:
@@ -16,6 +13,9 @@ public:
 	~Game();
 	Game(Game& game) = delete;
 	Game& operator=(Game& game) = delete;
+
+	void Init(GameConfig conf);
+	void Enter();
 
 	template<typename T> void AddLevel() {
 

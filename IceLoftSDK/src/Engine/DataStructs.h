@@ -52,6 +52,7 @@ typedef struct IVec4 {
 struct GameConfig {
 	// Window-related properties
 	const char* Title = "IceLoft Engine"; // 
+	const char* WinIconPath = ""; // Path to the image of the window icon, "" = no icon
 	IVec2 WinSize = { 1280, 720 };
 	IVec2 WinAspectRatio = { 16, 9 };
 	bool WinResizable = true;
