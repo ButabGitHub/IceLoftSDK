@@ -13,19 +13,19 @@ void Game::Init(GameConfig conf) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Only for MacOS
 #endif
 
-    GLFWwindow* window = glfwCreateWindow(conf.WinSize.x, conf.WinSize.y, conf.Title, NULL, NULL); // Main GLFW Window
-    if (window == NULL) {
+    GameWindow = glfwCreateWindow(conf.WinSize.x, conf.WinSize.y, conf.Title, NULL, NULL); // Main GLFW Window
+    if (GameWindow == NULL) {
         std::cout << "\x1b[38;5;9mFailed to create GLFW window" << std::endl;
         glfwTerminate();
         // return -1;
     }
-    glfwMakeContextCurrent(window); // Making main window current context 
+    glfwMakeContextCurrent(GameWindow); // Making main window current context 
 
-    Input::set_input_callbacks(window);
+    Input::set_input_callbacks(GameWindow);
 
-    glfwSetWindowAspectRatio(window, 16, 9); // Set aspect ration to 16:9
+    glfwSetWindowAspectRatio(GameWindow, 16, 9); // Set aspect ratio to 16:9
 
-    glfwSwapInterval(0); // Use to disable vsync (enabled by default)
+    glfwSwapInterval(conf.VSync); // Use to enable/disable vsync (enabled by default)
 
     //glfwSetCursorPosCallback(window, cursor_position_callback);
 
@@ -42,8 +42,8 @@ void Game::Init(GameConfig conf) {
     glEnable(GL_MULTISAMPLE);
 
     GLFWimage WindowIcon[1];
-    WindowIcon[0].pixels = stbi_load(conf.WinIconPath, &WindowIcon[0].width, &WindowIcon[0].height, 0, 4); // RGBA channels 
-    glfwSetWindowIcon(window, 1, WindowIcon);
+    WindowIcon[0].pixels = stbi_load(conf.WinIconPath, &WindowIcon[0].width, &WindowIcon[0].height, 0, 4); // RGBA channels
+    glfwSetWindowIcon(GameWindow, 1, WindowIcon);
     stbi_image_free(WindowIcon[0].pixels);
 
     // Enable face culling
@@ -52,3 +52,7 @@ void Game::Init(GameConfig conf) {
     glFrontFace(GL_CCW);
 }
 
+GLFWwindow*& Game::GetWindow() {
+    GLFWwindow*& win = GameWindow;
+    return win;
+}

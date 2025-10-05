@@ -17,7 +17,12 @@ public:
 	void Init(GameConfig conf);
 	void Enter();
 
+	GLFWwindow*& GetWindow();
+
 	template<typename T> void AddLevel() {
 
 	}
+
+private:
+	GLFWwindow* GameWindow = nullptr;
 };
