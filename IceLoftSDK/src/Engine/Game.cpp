@@ -2,6 +2,14 @@
 #include "Engine/Input.h"
 #include <Include/stb_image/stb_image.h>
 
+Game::Game() {
+
+}
+
+Game::~Game() {
+    glfwTerminate(); // Terminate all GLFW resources
+}
+
 void Game::Init(GameConfig conf) {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -50,6 +58,17 @@ void Game::Init(GameConfig conf) {
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
+}
+
+void Game::Enter() {
+#if CUSTOM_CLOSING_LOGIC
+    while (!WindowShouldClose) {
+#else
+    while (!glfwWindowShouldClose(GameWindow)) {
+#endif
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    }
 }
 
 GLFWwindow*& Game::GetWindow() {

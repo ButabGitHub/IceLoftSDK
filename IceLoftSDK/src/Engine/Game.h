@@ -7,6 +7,9 @@
 
 #include "Engine/DataStructs.h"
 
+// Defines
+#define CUSTOM_CLOSING_LOGIC 0 // If true (1), gives ability to manually handle when the window would close
+
 class Game {
 public:
 	Game();
@@ -14,8 +17,9 @@ public:
 	Game(Game& game) = delete;
 	Game& operator=(Game& game) = delete;
 
-	void Init(GameConfig conf);
-	void Enter();
+	// 
+	void Init(GameConfig conf); // Initialise the Game
+	void Enter(); // Run the Game
 
 	GLFWwindow*& GetWindow();
 
@@ -24,5 +28,11 @@ public:
 	}
 
 private:
+	// Window-related stuff
 	GLFWwindow* GameWindow = nullptr;
+	bool WindowShouldClose = false;
+
+	// DeltaTime-related stuff
+	float delta = 0.0f;
+
 };

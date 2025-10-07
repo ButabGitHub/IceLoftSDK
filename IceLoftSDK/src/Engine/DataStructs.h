@@ -47,6 +47,15 @@ typedef struct IVec4 {
 	int w;
 } IVec4;
 
+// Color
+// -----------------------------------------------------------------------
+typedef struct Color {
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+	unsigned char a;
+} Color;
+
 // Configs
 // -----------------------------------------------------------------------
 struct GameConfig {
@@ -58,4 +67,5 @@ struct GameConfig {
 	bool WinResizable = true;
 	int FpsMax = 0; // FPS cap, 0 = unlimited unless VSync is enabled
 	bool VSync = false;
+
 };
