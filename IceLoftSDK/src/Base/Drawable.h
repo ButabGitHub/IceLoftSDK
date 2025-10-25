@@ -18,6 +18,6 @@ public:
 	void Draw();
 
 private:
-
+	GLuint VBO, VAO;
 };
 

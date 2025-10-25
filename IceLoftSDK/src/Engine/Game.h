@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 
 #include "Engine/DataStructs.h"
+#include "Level/Level.h"
 
 // Defines
 #define CUSTOM_CLOSING_LOGIC 0 // If true (1), gives ability to manually handle when the window would close
