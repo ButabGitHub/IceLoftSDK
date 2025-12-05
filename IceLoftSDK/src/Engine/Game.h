@@ -5,6 +5,10 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif // _WIN32
+
 #include "Engine/DataStructs.h"
 #include "Engine/LevelManager.h"
 
@@ -30,7 +34,7 @@ private:
 	GLFWwindow* GameWindow = nullptr;
 #if CUSTOM_CLOSING_LOGIC
 	bool WindowShouldClose = false;
-#endif
+#endif CUSTOM_CLOSING_LOGIC
 
 	// Level manager
 	LevelManager LvManager;

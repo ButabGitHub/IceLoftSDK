@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "Engine/Input.h"
+// #include "Engine/Input.h"
 #include <Include/stb_image/stb_image.h>
 
 Game::Game() {
@@ -11,15 +11,24 @@ Game::~Game() {
 }
 
 void Game::Init(GameConfig conf) {
+
+#ifdef _WIN32
+    // Make ANSI escape sequences work for Windows command prompt
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+    SetConsoleMode(hInput, ENABLE_VIRTUAL_TERMINAL_INPUT);
+    HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleMode(hOutput, ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_SAMPLES, 4);
+#endif // _WIN32
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Only for MacOS
-#endif
+#endif // __APPLE__
 
     GameWindow = glfwCreateWindow(conf.WinSize.x, conf.WinSize.y, conf.Title, NULL, NULL); // Main GLFW Window
     if (GameWindow == NULL) {
@@ -29,7 +38,7 @@ void Game::Init(GameConfig conf) {
     }
     glfwMakeContextCurrent(GameWindow);
 
-    Input::set_input_callbacks(GameWindow);
+    // Input::set_input_callbacks(GameWindow);
 
     glfwSetWindowAspectRatio(GameWindow, conf.WinAspectRatio.x, conf.WinAspectRatio.y); // Set aspect ratio
 
@@ -62,8 +71,8 @@ void Game::Enter() {
     while (!WindowShouldClose) {
 #else
     while (!glfwWindowShouldClose(GameWindow)) {
-#endif
-        LvManager.Update();
+#endif // CUSTOM_CLOSING_LOGIC
+        LvManager.Update(0.0f);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
