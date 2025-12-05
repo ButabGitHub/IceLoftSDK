@@ -10,33 +10,37 @@ Node::~Node() {
 
 }
 
-void Node::Init() {
+void Node::Enter() {
+    OnEnter();
 	for (const std::unique_ptr<Node>& child : children) {
-		child->Init();
+		child->Enter();
 	}
 }
 
-void Node::Update(double delta) {
+void Node::Update(double Delta) {
+    OnUpdate(Delta);
     for (const std::unique_ptr<Node>& child : children) {
-        child->Update(delta);
+        child->Update(Delta);
     }
 }
 
 void Node::ProcessInput() {
+
     for (const std::unique_ptr<Node>& child : children) {
         child->ProcessInput();
     }
 }
 
-void Node::End() {
+void Node::Exit() {
+    OnExit();
     for (const std::unique_ptr<Node>& child : children) {
-        child->End();
+        child->Exit();
     }
 }
 
 void Node::AddChild(std::unique_ptr<Node> child) {
     child->parent = this;
-    child->Init();
+    child->Enter();
     children.push_back(std::move(child));
 }
 
@@ -49,13 +53,13 @@ std::unique_ptr<Node>& Node::GetChild(const int child) {
 	    return children.at(child);
 }
 
-std::unique_ptr<Node>& Node::GetChild(const std::string& child) {
+std::unique_ptr<Node>& Node::GetNode(const std::string& NodePath) {
     for (auto& _child : children) {
-        if (_child->name == child) {
+        if (_child->name == NodePath) {
             return _child;
         }
     }
-    std::cerr << "\x1b[38;5;9m\ Invalid child name: " << child << ", at the node named \"" << this->name << "\" .\n";
+    std::cerr << "\x1b[38;5;9m\ Invalid node path: " << NodePath << ", under the node named \"" << this->name << "\" .\n";
 }
 
 Node* Node::GetParent() {
@@ -72,7 +76,7 @@ std::vector<std::unique_ptr<Node>>& Node::GetChildren() {
 
 void Node::Destroy() {
     // Call the End() first
-    this->End();
+    this->Exit();
 
     // Check if this Node has children and if so, call this function inside of them
     if (children.size() > 0) 

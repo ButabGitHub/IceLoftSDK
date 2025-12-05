@@ -27,20 +27,17 @@ void Game::Init(GameConfig conf) {
         glfwTerminate();
         // return -1;
     }
-    glfwMakeContextCurrent(GameWindow); // Making main window current context 
+    glfwMakeContextCurrent(GameWindow);
 
     Input::set_input_callbacks(GameWindow);
 
-    glfwSetWindowAspectRatio(GameWindow, 16, 9); // Set aspect ratio to 16:9
+    glfwSetWindowAspectRatio(GameWindow, conf.WinAspectRatio.x, conf.WinAspectRatio.y); // Set aspect ratio
 
-    glfwSwapInterval(conf.VSync); // Use to enable/disable vsync (enabled by default)
-
-    //glfwSetCursorPosCallback(window, cursor_position_callback);
+    glfwSwapInterval(conf.VSync);
 
     // Glad load all OpenGL function properties
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cerr << "\x1b[38;5;9mFailed to initialize GLAD" << std::endl;
-        // return -1;
     }
 
     // Enable depth buffer
@@ -66,6 +63,8 @@ void Game::Enter() {
 #else
     while (!glfwWindowShouldClose(GameWindow)) {
 #endif
+        LvManager.Update();
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     }
@@ -74,4 +73,9 @@ void Game::Enter() {
 GLFWwindow*& Game::GetWindow() {
     GLFWwindow*& win = GameWindow;
     return win;
+}
+
+LevelManager& Game::GetLevelManager() {
+    LevelManager& LMRef = LvManager;
+    return LMRef;
 }

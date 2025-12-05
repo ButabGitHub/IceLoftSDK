@@ -1,43 +1,43 @@
 #pragma once
 
+#include "Base/Object.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
 
-class Node {
+class Node : public IObject {
 public:
     std::string name;
 
     Node();
     ~Node();
 
-    // Lifecycle stuff
-
-    /// <summary> Called on the first appearance of the node in the tree </summary>
-    virtual void Init();
-
+    // Non-overridable lifecycle functions, 
+    /// <summary> 
+    /// Called on the first appearance of the node in the tree 
+    /// </summary>
+    void Enter() override final;
     /// <summary> 
     /// Called every frame 
     /// </summary>
     /// <param name="Delta ">time elapsed since the previous frame </param>
-    virtual void Update(double delta);
-
+    void Update(double Delta) override final;
+    /// <summary> 
+    /// Called when the node exits the tree
+    /// </summary>
+    void Exit() override final;
     /// <summary>
     /// Called every time input is being processed
     /// </summary>
-    virtual void ProcessInput();
+    void ProcessInput() override final;
 
-protected:
-    virtual void End();
-
-public:
-
-    // Node interaction stuff
+    // Node interaction functions
     void AddChild(std::unique_ptr<Node>);
 
-    std::unique_ptr<Node>& GetChild(const int child); // GetChild by it's index
-    std::unique_ptr<Node>& GetChild(const std::string& child); // GetChild by it's name
+    std::unique_ptr<Node>& GetChild(const int child); // GetChild by its index
+    std::unique_ptr<Node>& GetNode(const std::string& NodePath);
 
     /// <summary>
     /// Returns the parent
@@ -48,8 +48,6 @@ public:
     void Destroy(); // Destroy the Node
     
     std::vector<std::unique_ptr<Node>>& GetChildren();
-
-    // Idk what I can add here
 
 private:
     Node* parent = nullptr;

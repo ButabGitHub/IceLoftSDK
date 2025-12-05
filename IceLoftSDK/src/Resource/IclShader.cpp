@@ -45,9 +45,7 @@ std::unique_ptr<Shader> Shader::Load(const char* path) {
             }
     }
 
-    // holy fuck this code is so shit
-
-    // Create a new shader which will get returned and specify shit
+    // Create a new shader which will get returned
     std::unique_ptr<Shader> shader = std::make_unique<Shader>(type, ss.str().c_str());
 
     return shader;
